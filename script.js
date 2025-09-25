@@ -27,10 +27,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 👇 Función reutilizable para cerrar sidebar y overlay
   function closeSidebar() {
-    catalogoSubmenu.classList.toggle("hidden"); // Pliega el desplegable del catalogo
     sidebar.classList.add("oculto");
     overlay.classList.remove("activo");
     main.classList.remove("desplazado");
+    catalogoSubmenu.classList.toggle("hidden"); // Pliega el desplegable del catalogo
   }
 
   function displayCatalog(category) {
@@ -171,6 +171,11 @@ transpuesta.forEach((filaColores, filaIndex) => {
   });
 
   function Revisar(){
+    /*const isClosed = sidebar.classList.contains("oculto");
+    sidebar.classList.toggle("oculto");
+    overlay.classList.toggle("activo", isClosed);
+    main.classList.toggle("desplazado", isClosed);*/
+
     const isClosed = sidebar.classList.contains("oculto");
     sidebar.classList.toggle("oculto");
     overlay.classList.toggle("activo", isClosed);
@@ -179,12 +184,12 @@ transpuesta.forEach((filaColores, filaIndex) => {
 
   menuBtn.addEventListener("click", Revisar);
 
-  overlay.addEventListener("click", Revisar); //closeSidebar
+  overlay.addEventListener("click", closeSidebar);
 
   function goToHome(){  //Funcion que te lleva a home/inicio
     main.classList.add("hidden");
     homeScreen.classList.remove("hidden");
-    Revisar();//closeSidebar
+    Revisar();//closeSidebar()
   }
 
   document.getElementById("inicioBtn").addEventListener("click", goToHome);
