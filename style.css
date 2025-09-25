@@ -1,0 +1,495 @@
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: #fdfdfd;
+  color: #333;
+  overflow-x: hidden;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 60%;
+  max-width: 180px;
+  background-color: #f5f0e6;
+  padding: 80px 20px 20px 20px; /* 👈 espacio arriba (antes era 20px) */
+  height: 100vh;
+  box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+  transform: translateX(-100%);
+  opacity: 0;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  z-index: 1001;
+}
+
+
+.sidebar:not(.oculto) {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+/* Espacio extra para que las opciones no queden pegadas arriba */
+.sidebar > ul {
+  margin-top: 60px;   /* Ajusta este valor (ej: 80px) según el espacio que quieras */
+  padding-left: 0;
+}
+
+.sidebar > ul > li:first-child {
+  margin-top: 0; /* ya no necesitamos un margen solo en el primero */
+}
+
+.sidebar > ul {
+  margin-top: 0;
+  padding-left: 0;
+}
+
+/* Main */
+.main {
+  transition: margin-left 0.3s ease;
+  padding: 20px;
+  margin-left: 0;
+}
+
+.main.desplazado {
+  margin-left: 200px;
+}
+
+#catalogTitle {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+/* Botones flotantes */
+.hamburguesa,
+.perfil {
+  position: fixed;
+  top: 15px;
+  font-size: 22px;
+  background: white;         /* círculo blanco */
+  border: none;
+  cursor: pointer;
+  z-index: 1100;
+  color: #1976d2;            /* color del icono */
+  
+  /* Estilo circular */
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.hamburguesa {
+  left: 15px;   /* esquina izquierda */
+  font-size: 24px;
+}
+
+.perfil {
+  right: 15px;  /* esquina derecha */
+}
+
+.hamburguesa:hover,
+.perfil:hover {
+  background: #f0f0f0;       /* gris claro al pasar el ratón */
+  transform: scale(1.05);    /* efecto zoom suave */
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+ul li {
+  margin: 12px 0;
+}
+
+ul a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 600;
+  display: inline-block;
+  line-height: 1.2;
+}
+
+.submenu {
+  margin-left: 14px;
+  margin-top: 6px;
+  padding-left: 0;
+}
+
+.submenu li {
+  margin: 6px 0;
+}
+
+/* Catálogo horizontal */
+#catalog {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 20px;
+  overflow-x: auto;
+  padding: 20px 0 20px 10px;
+}
+
+/* Prendas */
+.prenda,
+.addBtn {
+  display: inline-block;
+  border-radius: 10px;
+  width: 120px;
+  height: 180px;
+  background-color: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.prenda img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.addBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  color: #1976d2;
+  cursor: pointer;
+  border: 2px dashed #1976d2;
+  background: #fff;
+  transition: background 0.2s ease, transform 0.2s ease;
+  order: -1;
+}
+
+.addBtn:hover {
+  background: #e3f2fd;
+  transform: scale(1.05);
+}
+
+.eliminarBtn {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background-color: #d32f2f;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 14px;
+  cursor: pointer;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* Selector de color */
+.colorSelector {
+  position: absolute;
+  bottom: 6px;
+  left: 6px;
+  right: 6px;
+  height: 28px;
+  background: #f5f5f5;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  color: #333;
+}
+
+.colorModal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 12px;
+  z-index: 2000;
+  display: none;
+  flex-direction: column; /* modal apila las filas una debajo de otra */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.filaColores {
+  display: flex;          /* 👈 fila horizontal */
+  flex-direction: row;    /* explícito: colores de izq a der */
+  gap: 0;                 /* sin separación entre colores */
+}
+
+.swatch {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+
+
+/* Notificación */
+#notification {
+  background-color: #4CAF50;
+  color: white;
+  padding: 8px;
+  margin: 10px auto;
+  width: fit-content;
+  border-radius: 6px;
+  font-weight: bold;
+}
+
+/* Pantalla de inicio */
+#homeScreen {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+  color: white;
+  background: url('images/vittorio.jpg') no-repeat center center / cover;
+  overflow: hidden;
+}
+
+#homeScreen .home-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(6px);
+  z-index: 1;
+}
+
+#homeScreen .home-content {
+  position: relative;
+  z-index: 2;
+  padding: 20px;
+  max-width: 90%;
+}
+
+#homeScreen h1 {
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  text-shadow: 0 4px 10px rgba(0,0,0,0.6);
+}
+
+#homeScreen p {
+  font-size: 22px;
+  opacity: 0.95;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.5);
+}
+
+/* Overlay con fade */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.3);
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.overlay.activo {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Main con desplazamiento suave */
+.main {
+  transition: transform 0.3s ease;
+}
+
+.main.desplazado {
+  transform: translateX(200px);
+}
+
+
+/* Modal */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1200;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.modal:not(.oculto) {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  width: 80%;
+  max-width: 400px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  animation: aparecer 0.3s ease;
+}
+
+@keyframes aparecer {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Menú desplegable del perfil con fade */
+.perfil-menu {
+  position: absolute;
+  top: 65px; /* separado del botón perfil */
+  right: 15px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  padding: 10px 0;
+  min-width: 150px;
+  z-index: 1100;
+
+  /* Fade y pequeño slide */
+  opacity: 0;
+  transform: translateY(-10px);
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+/* Cuando está activo */
+.perfil-menu.activo {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: all;
+}
+
+/* Estilos internos del menú */
+.perfil-menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.perfil-menu li {
+  padding: 8px 16px;
+}
+
+.perfil-menu li a {
+  text-decoration: none;
+  color: #333;
+  display: block;
+}
+
+.perfil-menu li a:hover {
+  background-color: #f0f0f0;
+}
+
+/* Carrusel de selección de fondo */
+.fondo-carrusel {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 180px;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1200;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.fondo-carrusel.activo {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.carrusel-contenido {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 0 10px;
+  height: 100%;
+  align-items: center;
+}
+
+.carrusel-contenido img {
+  height: 160px;
+  border-radius: 10px;
+  cursor: pointer;
+  border: 3px solid transparent;
+  transition: transform 0.2s ease, border 0.2s ease;
+}
+
+.carrusel-contenido img:hover {
+  transform: scale(1.05);
+  border: 3px solid white;
+}
+
+.fondo-carrusel-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  display: flex;
+  justify-content: center; 
+  align-items: flex-end;
+  background: rgba(0,0,0,0.3);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 1200;
+}
+
+.fondo-carrusel-overlay.activo {
+  opacity: 1;
+  pointer-events: all;
+}
+
+
+.carrusel-contenido {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 10px;
+  height: 180px;
+  background: rgba(0,0,0,0.6);
+  border-radius: 10px 10px 0 0;
+  align-items: center;
+}
+

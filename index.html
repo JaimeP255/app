@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FashionCloset</title>
+
+  <!-- Fuentes -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Botones fijos -->
+  <button id="menuToggle" class="hamburguesa">☰</button>
+  <button class="perfil">👤</button>
+
+  <!-- Sidebar -->
+  <div class="sidebar oculto" id="sidebar">
+    <ul>
+      <li><a href="#" id="inicioBtn">Inicio</a></li>
+      <li>
+        <a href="#" id="catalogoToggle">Catálogo ▾</a>
+        <ul id="catalogoSubmenu" class="submenu hidden"></ul>
+      </li>
+      <li><a href="#" id="editarCatalogoBtn">Editar catálogo</a></li>
+    </ul>
+  </div>
+
+  <!-- Overlay -->
+  <div id="overlay" class="overlay oculto"></div>
+
+  <!-- Contenido principal -->
+  <div class="main hidden" id="mainContent">
+    <h2 id="catalogTitle">Catálogo</h2>
+    <div id="catalog"></div>
+    <div id="notification" class="hidden">✅ Prenda añadida</div>
+  </div>
+
+  <!-- Pantalla inicio -->
+  <div id="homeScreen">
+    <div class="home-content">
+      <h1>👗 FashionCloset</h1>
+      <p>Organiza y redescubre tu estilo</p>
+    </div>
+  </div>
+
+  <!-- Input oculto para subir imágenes -->
+  <input type="file" id="imageInput" accept="image/*" class="hidden">
+
+  <!-- Modal editar catálogo -->
+  <div id="modalCatalogo" class="modal oculto">
+    <div class="modal-content">
+      <h3>Editar catálogo</h3>
+      <form id="catalogoForm">
+        <label><input type="checkbox" value="gorros"> Gorros</label><br>
+        <label><input type="checkbox" value="partesArriba"> Partes de arriba</label><br>
+        <label><input type="checkbox" value="partesAbajo"> Partes de abajo</label><br>
+        <label><input type="checkbox" value="zapatillas"> Zapatillas</label><br>
+        <label><input type="checkbox" value="ropaInterior"> Ropa interior</label><br>
+        <label><input type="checkbox" value="enteros"> Enteros</label><br>
+        <label><input type="checkbox" value="accesorios"> Accesorios</label><br>
+        <button type="submit">Guardar</button>
+      </form>
+      <button id="cerrarModal">Cerrar</button>
+    </div>
+  </div>
+
+  <!-- Botón de perfil -->
+  <button class="perfil" id="perfilBtn">👤</button>
+
+  <!-- Menú desplegable -->
+  <div id="perfilMenu" class="perfil-menu oculto">
+    <ul>
+      <li><a href="#" id="ajustesBtn">Ajustes</a></li>
+      <li><a href="#" id="elegirFondoBtn">Elegir fondo</a></li>
+      <li><a href="#" id="cerrarSesionBtn">Cerrar sesión</a></li>
+    </ul>
+  </div>
+
+  <!-- Carrusel de selección de fondo -->
+  <div id="fondoCarrusel" class="fondo-carrusel oculto">
+    <div class="carrusel-contenido" id="carruselContenido">
+      <!-- Las imágenes se insertan con JS -->
+    </div>
+  </div>
+
+  <!-- Script -->
+  <script src="script.js"></script>
+</body>
+</html>
