@@ -26,11 +26,18 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
   // 👇 Función reutilizable para cerrar sidebar y overlay
-  function closeSidebar() {
+  function closeSidebarToggleCatalog() {
     sidebar.classList.add("oculto");
     overlay.classList.remove("activo");
     main.classList.remove("desplazado");
     catalogoSubmenu.classList.toggle("hidden"); // Pliega el desplegable del catalogo
+  }
+
+  function closeSidebar(){         //Cierra el sidebar y pliega el desplegable del catalogo
+    sidebar.classList.add("oculto");
+    overlay.classList.remove("activo");
+    main.classList.remove("desplazado");
+    catalogoSubmenu.classList.add("hidden"); // Pliega el desplegable del catalogo
   }
 
   function displayCatalog(category) {
@@ -78,33 +85,33 @@ document.addEventListener('DOMContentLoaded', () => {
         ["#fbff00ff", "#ab9d0cff", "#cbc805ff", "#feed35ff", "#f8f27eff", "#fcfe94ff"],
       ];
 
-// Transponer el array de colores
-const transpuesta = temaColores[0].map((_, i) => temaColores.map(row => row[i]));
+      // Transponer el array de colores
+      const transpuesta = temaColores[0].map((_, i) => temaColores.map(row => row[i]));
 
-transpuesta.forEach((filaColores, filaIndex) => {
-  const fila = document.createElement("div");
-  fila.className = "filaColores";
+      transpuesta.forEach((filaColores, filaIndex) => {
+        const fila = document.createElement("div");
+        fila.className = "filaColores";
 
-  filaColores.forEach(color => {
-    const swatch = document.createElement("div");
-    swatch.className = "swatch";
-    swatch.style.backgroundColor = color;
-    swatch.onclick = () => {
-      prenda.color = color;
-      colorSelector.style.backgroundColor = color;
-      prendaDiv.style.boxShadow = `0 0 0 4px ${color}`;
-      colorModal.style.display = "none";
-      localStorage.setItem(category, JSON.stringify(prendas));
-    };
-    fila.appendChild(swatch);
-  });
+        filaColores.forEach(color => {
+          const swatch = document.createElement("div");
+          swatch.className = "swatch";
+          swatch.style.backgroundColor = color;
+          swatch.onclick = () => {
+            prenda.color = color;
+            colorSelector.style.backgroundColor = color;
+            prendaDiv.style.boxShadow = `0 0 0 4px ${color}`;
+            colorModal.style.display = "none";
+            localStorage.setItem(category, JSON.stringify(prendas));
+          };
+          fila.appendChild(swatch);
+        });
 
-  if (filaIndex === 0) {
-    fila.style.marginBottom = "12px"; // 👈 espacio debajo de la primera fila
-  }
+        if (filaIndex === 0) {
+          fila.style.marginBottom = "12px"; // 👈 espacio debajo de la primera fila
+        }
 
-  colorModal.appendChild(fila);
-});
+        colorModal.appendChild(fila);
+      });
 
 
 
@@ -131,7 +138,7 @@ transpuesta.forEach((filaColores, filaIndex) => {
     main.classList.remove("hidden");
     homeScreen.classList.add("hidden");
 
-    closeSidebar(); // 👈 cerrar sidebar automáticamente
+    closeSidebarToggleCatalog(); // 👈 cerrar sidebar automáticamente
     //Ver si se puede poner esa funcion aqui y ya
   }
 
@@ -182,14 +189,19 @@ transpuesta.forEach((filaColores, filaIndex) => {
     main.classList.toggle("desplazado", isClosed);
   }
 
-  menuBtn.addEventListener("click", Revisar);
+  menuBtn.addEventListener("click", ()=>{
+    const isClosed = sidebar.classList.contains("oculto");
+    sidebar.classList.toggle("oculto");
+    overlay.classList.toggle("activo", isClosed);
+    main.classList.toggle("desplazado", isClosed);
+  });
 
   overlay.addEventListener("click", closeSidebar);
 
-  function goToHome(){  //Funcion que te lleva a home/inicio
+  function goToHome(){  //Funcion que te lleva a home/inicio    //Cierra el desplegable del catalogo
     main.classList.add("hidden");
     homeScreen.classList.remove("hidden");
-    Revisar();//closeSidebar()
+    closeSidebar();
   }
 
   document.getElementById("inicioBtn").addEventListener("click", goToHome);
@@ -244,6 +256,7 @@ transpuesta.forEach((filaColores, filaIndex) => {
     e.stopPropagation();
   });
 
+  //Boton de elegir fondo
   const elegirFondoBtn = document.getElementById("elegirFondoBtn");
   const fondoCarrusel = document.getElementById("fondoCarrusel");
   const carruselContenido = document.getElementById("carruselContenido");
