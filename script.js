@@ -31,6 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     overlay.classList.remove("activo");
     main.classList.remove("desplazado");
     catalogoSubmenu.classList.toggle("hidden"); // Pliega el desplegable del catalogo
+    textoMenu.classList.toggle("visible"); // mostrar/ocultar texto
   }
 
   function closeSidebar(){         //Cierra el sidebar y pliega el desplegable del catalogo
@@ -38,6 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
     overlay.classList.remove("activo");
     main.classList.remove("desplazado");
     catalogoSubmenu.classList.add("hidden"); // Pliega el desplegable del catalogo
+    textoMenu.classList.toggle("visible"); // mostrar/ocultar texto
   }
 
   function displayCatalog(category) {
@@ -197,6 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
     sidebar.classList.toggle("oculto");
     overlay.classList.toggle("activo", isClosed);
     main.classList.toggle("desplazado", isClosed);
+    textoMenu.classList.toggle("visible"); // mostrar/ocultar texto
   });
 
   overlay.addEventListener("click", closeSidebar);
@@ -278,6 +281,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Abrir carrusel
   elegirFondoBtn.addEventListener("click", (e) => {
     goToHome(); //Te lleva al home por si no estas
+    textoMenu.classList.toggle("visible"); // mostrar/ocultar texto
     perfilMenu.classList.remove("activo");
     e.stopPropagation(); // 👈 evita que se cierre instantáneamente
     carruselContenido.innerHTML = "";
