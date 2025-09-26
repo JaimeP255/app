@@ -493,3 +493,26 @@ ul a {
   align-items: center;
 }
 
+.texto-menu {
+  position: fixed;       /* fijo junto a la hamburguesa */
+  top: 15px;             /* mismo top que la hamburguesa */
+  left: 85px;            /* separado de la hamburguesa */
+  font-size: 24px;       /* más grande */
+  font-weight: 600;      /* más grueso */
+  color: #000;           /* negro */
+  opacity: 0;             /* oculto por defecto */
+  transform: translateX(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 1100;          /* encima del contenido */
+  display: flex;
+  align-items: center;    /* centra verticalmente con la hamburguesa */
+  height: 53px;           /* mismo alto que el botón */
+}
+
+
+.texto-menu.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+
