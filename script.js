@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
       "gorros", "partesArriba", "partesAbajo", "zapatillas"
     ];
 
-  // 👇 Función reutilizable para cerrar sidebar y overlay
+  // Cierra el sidebar y hace toggle en el menu desplegable del catalog
   function closeSidebarToggleCatalog() {
     sidebar.classList.add("oculto");
     overlay.classList.remove("activo");
@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
             prenda.color = color;
             colorSelector.style.backgroundColor = color;
             prendaDiv.style.boxShadow = `0 0 0 4px ${color}`;
-            colorModal.style.display = "none";
+            closePaletaColores();
             localStorage.setItem(category, JSON.stringify(prendas));
           };
           fila.appendChild(swatch);
@@ -114,11 +114,26 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
 
+      function closePaletaColores(){    //Cierra la paleta de colores
+        colorModal.style.display = "none";
+      }
 
 
       document.body.appendChild(colorModal);
 
-      colorSelector.onclick = () => { colorModal.style.display = "flex"; };
+      document.addEventListener("click", (e) => {
+        // Si se hace clic fuera del colorModal y del botón colorSelector, cerramos la paleta
+        if (!colorModal.contains(e.target) && e.target !== colorSelector) {
+          closePaletaColores();
+        }
+      });
+
+      // Evita que clics dentro del modal cierren la paleta
+      colorModal.addEventListener("click", (e) => {
+        e.stopPropagation();
+      });
+
+      colorSelector.onclick = () => { colorModal.style.display = "flex"; }; //Boton en la prenda para abrir el desplegable de la paleta
 
       prendaDiv.appendChild(img);
       prendaDiv.appendChild(eliminarBtn);
@@ -177,19 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  function Revisar(){
-    /*const isClosed = sidebar.classList.contains("oculto");
-    sidebar.classList.toggle("oculto");
-    overlay.classList.toggle("activo", isClosed);
-    main.classList.toggle("desplazado", isClosed);*/
-
-    const isClosed = sidebar.classList.contains("oculto");
-    sidebar.classList.toggle("oculto");
-    overlay.classList.toggle("activo", isClosed);
-    main.classList.toggle("desplazado", isClosed);
-  }
-
-  menuBtn.addEventListener("click", ()=>{
+  menuBtn.addEventListener("click", ()=>{ //Cuando se clicka la hamburguesa (El boton del menu)
     const isClosed = sidebar.classList.contains("oculto");
     sidebar.classList.toggle("oculto");
     overlay.classList.toggle("activo", isClosed);
