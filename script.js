@@ -156,7 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
     homeScreen.classList.add("hidden");
 
     closeSidebarToggleCatalog(); // 👈 cerrar sidebar automáticamente
-    //Ver si se puede poner esa funcion aqui y ya
+
   }
 
   fileInput.addEventListener("change", (e) => {
@@ -174,6 +174,9 @@ document.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => notification.classList.add("hidden"), 2000);
     };
     reader.readAsDataURL(file);
+
+    //Resetear input
+    e.target.value = "";
   });
 
   // Crear menú dinámico
