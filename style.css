@@ -515,4 +515,126 @@ ul a {
   transform: translateX(0);
 }
 
+/* Asegura que cada prenda sea contenedor relativo */
+.prenda {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px;
+}
+
+.prenda img {
+  max-width: 120px;   /* ajusta según tu diseño */
+  border-radius: 8px;
+}
+
+.eliminarBtn {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: #ff4d4d;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Contenedor de la paleta de color arriba a la izquierda */
+.controlesPrenda {
+  position: absolute;
+  top: 6px;      /* arriba de la prenda */
+  left: 6px;     /* margen desde el lateral */
+  display: flex;
+  gap: 6px;
+  z-index: 10;
+}
+
+.colorSelector {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  background: #eee;
+  cursor: pointer;
+}
+
+/* Mantener el bloque de marca debajo de la prenda */
+.marcaDiv {
+  width: 100%;
+  padding: 8px;
+  background: #fff;              
+  border-radius: 0 0 10px 10px;  
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  box-sizing: border-box;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1); 
+  margin-top: 8px; /* separación de la paleta */
+}
+
+/* Input de marca */
+.marcaInput {
+  width: 100%;
+  padding: 6px;
+  box-sizing: border-box;
+  margin-top: 4px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+/* Dropdown de sugerencias */
+.marcaDropdown {
+  width: 100%;
+  max-height: 120px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #fff;
+  margin-top: 4px;
+  box-sizing: border-box;
+  z-index: 2000;
+  position: absolute;
+}
+
+.marcaDropdown.hidden,
+.marcaInput.hidden {
+  display: none;
+}
+
+.marcaItem {
+  padding: 6px 8px;
+  cursor: pointer;
+}
+
+.marcaItem:hover {
+  background-color: #f0f0f0;
+}
+
+/* Botón de la paleta */
+.colorSelector {
+  position: absolute;   /* importante */
+  top: 6px;             /* arriba */
+  left: 6px;            /* izquierda */
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  background: #eee;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  z-index: 10;          /* encima de la imagen */
+}
+
 
