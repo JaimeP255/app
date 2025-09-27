@@ -69,6 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
         prendaDiv.style.boxShadow = `0 0 0 4px ${prenda.color}`;
       }
 
+      // Paleta de color
       const colorSelector = document.createElement("div");
       colorSelector.className = "colorSelector";
       colorSelector.innerHTML = "🎨";
@@ -78,16 +79,15 @@ document.addEventListener('DOMContentLoaded', () => {
       colorModal.className = "colorModal";
 
       const temaColores = [
-        ["#000000", "#444444", "#888888", "#bbbbbb", "#dddddd", "#ffffff"],
-        ["#1e88e5", "#42a5f5", "#64b5f6", "#90caf9", "#bbdefb", "#e3f2fd"],
-        ["#fb8c00", "#9d5f01ff", "#c57704ff", "#fbad38ff", "#f6c77cff", "#fee9a4ff"],
-        ["#00ff0dff", "#014f05ff", "#018208ff", "#4cfc52ff", "#86ff8aff", "#abfbb1ff"],
-        ["#c800ffff", "#51025fff", "#68037aff", "#ba02dbff", "#e973fcff", "#f7a1faff"],
-        ["#f02222ff", "#800505ff", "#af2b2bff", "#fb3f3fff", "#fe6f6fff", "#faa2a2ff"],
-        ["#fbff00ff", "#ab9d0cff", "#cbc805ff", "#feed35ff", "#f8f27eff", "#fcfe94ff"],
+        ["#000000","#444444","#888888","#bbbbbb","#dddddd","#ffffff"],
+        ["#1e88e5","#42a5f5","#64b5f6","#90caf9","#bbdefb","#e3f2fd"],
+        ["#fb8c00","#9d5f01ff","#c57704ff","#fbad38ff","#f6c77cff","#fee9a4ff"],
+        ["#00ff0dff","#014f05ff","#018208ff","#4cfc52ff","#86ff8aff","#abfbb1ff"],
+        ["#c800ffff","#51025fff","#68037aff","#ba02dbff","#e973fcff","#f7a1faff"],
+        ["#f02222ff","#800505ff","#af2b2bff","#fb3f3fff","#fe6f6fff","#faa2a2ff"],
+        ["#fbff00ff","#ab9d0cff","#cbc805ff","#feed35ff","#f8f27eff","#fcfe94ff"]
       ];
 
-      // Transponer el array de colores
       const transpuesta = temaColores[0].map((_, i) => temaColores.map(row => row[i]));
 
       transpuesta.forEach((filaColores, filaIndex) => {
@@ -102,46 +102,92 @@ document.addEventListener('DOMContentLoaded', () => {
             prenda.color = color;
             colorSelector.style.backgroundColor = color;
             prendaDiv.style.boxShadow = `0 0 0 4px ${color}`;
-            closePaletaColores();
+            colorModal.style.display = "none";
             localStorage.setItem(category, JSON.stringify(prendas));
           };
           fila.appendChild(swatch);
         });
 
-        if (filaIndex === 0) {
-          fila.style.marginBottom = "12px"; // 👈 espacio debajo de la primera fila
-        }
-
+        if (filaIndex === 0) fila.style.marginBottom = "12px";
         colorModal.appendChild(fila);
       });
-
-
-      function closePaletaColores(){    //Cierra la paleta de colores
-        colorModal.style.display = "none";
-      }
-
 
       document.body.appendChild(colorModal);
 
       document.addEventListener("click", (e) => {
-        // Si se hace clic fuera del colorModal y del botón colorSelector, cerramos la paleta
         if (!colorModal.contains(e.target) && e.target !== colorSelector) {
-          closePaletaColores();
+          colorModal.style.display = "none";
         }
       });
 
-      // Evita que clics dentro del modal cierren la paleta
-      colorModal.addEventListener("click", (e) => {
-        e.stopPropagation();
+      colorModal.addEventListener("click", (e) => e.stopPropagation());
+      colorSelector.onclick = () => { colorModal.style.display = "flex"; };
+
+      // Botón/input de marca con autocompletado
+      const marcaDiv = document.createElement("div");
+      marcaDiv.className = "marcaDiv";
+      marcaDiv.textContent = prenda.marca || "Marca";
+
+      const marcaInput = document.createElement("input");
+      marcaInput.type = "text";
+      marcaInput.className = "marcaInput hidden";
+      marcaInput.placeholder = "Escribe para buscar marca";
+
+      const marcaDropdown = document.createElement("div");
+      marcaDropdown.className = "marcaDropdown hidden";
+
+      const marcasDisponibles = [
+        "Polo Ralph Lauren","Nike","Adidas","Gucci","Zara","H&M","Levi's","Tommy Hilfiger"
+      ];
+
+      function actualizarDropdown() {
+        const valor = marcaInput.value.toLowerCase();
+        marcaDropdown.innerHTML = "";
+        marcasDisponibles.filter(m => m.toLowerCase().includes(valor))
+          .forEach(m => {
+            const item = document.createElement("div");
+            item.className = "marcaItem";
+            item.textContent = m;
+            item.addEventListener("click", () => {
+              prenda.marca = m;
+              marcaDiv.textContent = m;
+              marcaInput.classList.add("hidden");
+              marcaDropdown.classList.add("hidden");
+              localStorage.setItem(category, JSON.stringify(prendas));
+            });
+            marcaDropdown.appendChild(item);
+          });
+        marcaDropdown.classList.toggle("hidden", marcaDropdown.innerHTML === "");
+      }
+
+      marcaDiv.addEventListener("click", () => {
+        marcaInput.value = "";
+        marcaInput.classList.toggle("hidden");
+        marcaDropdown.classList.toggle("hidden");
+        marcaInput.focus();
+        actualizarDropdown();
       });
 
-      colorSelector.onclick = () => { colorModal.style.display = "flex"; }; //Boton en la prenda para abrir el desplegable de la paleta
+      marcaInput.addEventListener("input", actualizarDropdown);
 
+      document.addEventListener("click", (e) => {
+        if (!marcaDiv.contains(e.target) && !marcaInput.contains(e.target) && !marcaDropdown.contains(e.target)) {
+          marcaInput.classList.add("hidden");
+          marcaDropdown.classList.add("hidden");
+        }
+      });
+
+      // Append al DOM
       prendaDiv.appendChild(img);
       prendaDiv.appendChild(eliminarBtn);
-      prendaDiv.appendChild(colorSelector);
+      prendaDiv.appendChild(colorSelector); // ✅ directamente en prendaDiv para esquina superior
+      prendaDiv.appendChild(marcaDiv);
+      prendaDiv.appendChild(marcaInput);
+      prendaDiv.appendChild(marcaDropdown);
       catalog.appendChild(prendaDiv);
     });
+
+
 
     const addBtn = document.createElement("div");
     addBtn.className = "addBtn";
@@ -155,8 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
     main.classList.remove("hidden");
     homeScreen.classList.add("hidden");
 
-    closeSidebarToggleCatalog(); // 👈 cerrar sidebar automáticamente
-
+    closeSidebarToggleCatalog();
   }
 
   fileInput.addEventListener("change", (e) => {
