@@ -25,21 +25,13 @@ document.addEventListener('DOMContentLoaded', () => {
       "gorros", "partesArriba", "partesAbajo", "zapatillas"
     ];
 
-  // Cierra el sidebar y hace toggle en el menu desplegable del catalog
-  function closeSidebarToggleCatalog() {
-    sidebar.classList.add("oculto");
-    overlay.classList.remove("activo");
-    main.classList.remove("desplazado");
-    catalogoSubmenu.classList.toggle("hidden"); // Pliega el desplegable del catalogo
-    textoMenu.classList.toggle("visible"); // mostrar/ocultar texto
-  }
-
-  function closeSidebar(){         //Cierra el sidebar y pliega el desplegable del catalogo
+  //Cierra el sidebar
+  function closeSidebar(){
     sidebar.classList.add("oculto");
     overlay.classList.remove("activo");
     main.classList.remove("desplazado");
     catalogoSubmenu.classList.add("hidden"); // Pliega el desplegable del catalogo
-    textoMenu.classList.toggle("visible"); // mostrar/ocultar texto
+    textoMenu.classList.remove("visible"); // Ocultar texto
   }
 
   function displayCatalog(category) {
@@ -201,7 +193,8 @@ document.addEventListener('DOMContentLoaded', () => {
     main.classList.remove("hidden");
     homeScreen.classList.add("hidden");
 
-    closeSidebarToggleCatalog();
+    catalogoSubmenu.classList.toggle("hidden"); // Pliega/Despliega el desplegable del catalogo
+    closeSidebar();
   }
 
   fileInput.addEventListener("change", (e) => {
@@ -329,7 +322,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // Abrir carrusel
   elegirFondoBtn.addEventListener("click", (e) => {
     goToHome(); //Te lleva al home por si no estas
-    textoMenu.classList.toggle("visible"); // mostrar/ocultar texto
     perfilMenu.classList.remove("activo");
     e.stopPropagation(); // 👈 evita que se cierre instantáneamente
     carruselContenido.innerHTML = "";
