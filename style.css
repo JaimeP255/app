@@ -141,23 +141,54 @@ ul a {
 }
 
 /* Prendas */
-.prenda,
+/* Botón + */
 .addBtn {
-  display: inline-block;
-  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 120px;
-  height: 180px;
+  height: 220px;
+  border-radius: 10px;
+  background: #fff;
+  border: 2px dashed #1976d2; /* 🔹 borde azul solo para el + */
+  font-size: 32px;
+  color: #1976d2;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+  order: -1;
+}
+
+.addBtn:hover {
+  background: #e3f2fd;
+  transform: scale(1.05);
+}
+
+/* Prendas */
+.prenda {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 120px;
+  height: 220px; 
+  border-radius: 10px;
   background-color: #fff;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
   position: relative;
-  overflow: hidden;
+  overflow: visible;  /* permite dropdown hacia abajo */
+  border: none;        /* 🔹 quitar borde azul de las prendas */
 }
+
+
+
 
 .prenda img {
   width: 100%;
-  height: 100%;
+  height: 160px;    /* 👈 fija la altura de la foto */
   object-fit: cover;
+  border-radius: 8px 8px 0 0;
 }
+
 
 .addBtn {
   display: flex;
@@ -517,16 +548,24 @@ ul a {
 
 /* Asegura que cada prenda sea contenedor relativo */
 .prenda {
-  position: relative;
   display: flex;
   flex-direction: column;
+  justify-content: space-between; /* reparte imagen arriba y marca abajo */
   align-items: center;
-  margin: 10px;
+  width: 120px;
+  height: 220px;   /* todas iguales */
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  position: relative;
+  overflow: visible;
 }
 
 .prenda img {
-  max-width: 120px;   /* ajusta según tu diseño */
-  border-radius: 8px;
+  width: 100%;
+  height: 160px;   /* altura fija para la foto */
+  object-fit: cover;
+  border-radius: 8px 8px 0 0;
 }
 
 .eliminarBtn {
@@ -567,18 +606,17 @@ ul a {
 
 /* Mantener el bloque de marca debajo de la prenda */
 .marcaDiv {
-  width: 100%;
-  padding: 8px;
-  background: #fff;              
-  border-radius: 0 0 10px 10px;  
+  margin-top: 10px;
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #f8f8f8;
   text-align: center;
-  font-size: 14px;
-  font-weight: 600;
-  color: #333;
-  box-sizing: border-box;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1); 
-  margin-top: 8px; /* separación de la paleta */
+  cursor: pointer;
+  font-size: 14px; /* 🔹 tamaño de letra del botón */
+  position: relative; /* necesario para el dropdown */
 }
+
 
 /* Input de marca */
 .marcaInput {
@@ -593,22 +631,28 @@ ul a {
 
 /* Dropdown de sugerencias */
 .marcaDropdown {
+  position: absolute;
+  top: calc(100% + 4px); /* pequeño espacio debajo del input/texto */
+  left: 0;
   width: 100%;
-  max-height: 120px;
+  max-height: 150px;
   overflow-y: auto;
   border: 1px solid #ccc;
-  border-radius: 6px;
+  border-radius: 8px;
   background: #fff;
-  margin-top: 4px;
-  box-sizing: border-box;
   z-index: 2000;
-  position: absolute;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
-.marcaDropdown.hidden,
-.marcaInput.hidden {
+.marcaDropdown.hidden {
   display: none;
 }
+.marcaInput.hidden {
+  position: absolute; /* fuera del flujo para no empujar nada */
+  opacity: 0;
+  pointer-events: none;
+}
+
 
 .marcaItem {
   padding: 6px 8px;
@@ -637,4 +681,7 @@ ul a {
   z-index: 10;          /* encima de la imagen */
 }
 
+.marcaDropdown, .marcaDropdown .marcaItem, .marcaInput {
+  font-size: 12px;
+}
 
