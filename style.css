@@ -163,115 +163,135 @@ ul a {
   transform: scale(1.05);
 }
 
-/* Prendas */
+/* Prenda moderna */
 .prenda {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  width: 120px;
-  height: 220px; 
-  border-radius: 10px;
-  background-color: #fff;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  width: 140px;
+  height: 240px; 
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
   position: relative;
-  overflow: visible;  /* permite dropdown hacia abajo */
-  border: none;        /* 🔹 quitar borde azul de las prendas */
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-
-
+.prenda:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.18);
+}
 
 .prenda img {
   width: 100%;
-  height: 160px;    /* 👈 fija la altura de la foto */
+  height: 160px;
   object-fit: cover;
-  border-radius: 8px 8px 0 0;
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
 }
 
-
+/* Botón + moderno */
 .addBtn {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 32px;
+  font-size: 36px;
   color: #1976d2;
   cursor: pointer;
   border: 2px dashed #1976d2;
-  background: #fff;
-  transition: background 0.2s ease, transform 0.2s ease;
-  order: -1;
+  background: #f0f4ff;
+  border-radius: 18px;
+  transition: background 0.3s ease, transform 0.3s ease;
 }
 
 .addBtn:hover {
-  background: #e3f2fd;
+  background: #e0e8ff;
   transform: scale(1.05);
 }
 
+/* Botón eliminar moderno */
 .eliminarBtn {
   position: absolute;
-  top: 6px;
-  right: 6px;
-  background-color: #d32f2f;
+  top: 8px;
+  right: 8px;
+  background-color: #ff5252;
   color: white;
   border: none;
   border-radius: 50%;
-  font-size: 14px;
+  width: 26px;
+  height: 26px;
+  font-size: 16px;
   cursor: pointer;
-  width: 22px;
-  height: 22px;
   display: flex;
   align-items: center;
   justify-content: center;
-  line-height: 1;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  transition: transform 0.2s ease;
 }
 
-/* Selector de color */
+.eliminarBtn:hover {
+  transform: scale(1.1);
+}
+
+/* Selector de color moderno */
 .colorSelector {
   position: absolute;
-  bottom: 6px;
-  left: 6px;
-  right: 6px;
+  bottom: 8px;
+  left: 8px;
+  width: 28px;
   height: 28px;
+  border-radius: 50%;
   background: #f5f5f5;
-  border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
   cursor: pointer;
-  border: 1px solid #ccc;
-  color: #333;
+  border: 1px solid #ddd;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+.colorSelector:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Modal moderno */
 .colorModal {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: #fff;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  padding: 12px;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 20px;
   z-index: 2000;
   display: none;
-  flex-direction: column; /* modal apila las filas una debajo de otra */
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  flex-direction: column;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.25);
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .filaColores {
-  display: flex;          /* 👈 fila horizontal */
-  flex-direction: row;    /* explícito: colores de izq a der */
-  gap: 0;                 /* sin separación entre colores */
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
 }
 
 .swatch {
-  width: 30px;
-  height: 30px;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
   cursor: pointer;
-  border-radius: 4px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
+
+.swatch:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
 
 
 
@@ -685,3 +705,81 @@ ul a {
   font-size: 12px;
 }
 
+/* 🧵 Modal moderno para editar catálogo */
+.modal-content h3 {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* 🧩 Grid de categorías */
+.categorias-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+/* 🧺 Tarjetas de categoría */
+.categoria-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  background: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.categoria-card:hover {
+  background: #e3f2fd;
+  transform: scale(1.02);
+}
+
+.categoria-card input[type="checkbox"] {
+  accent-color: #1976d2;
+  width: 18px;
+  height: 18px;
+}
+
+/* 💾 Botones del modal */
+.modal-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.guardar-btn,
+.cerrar-btn {
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.guardar-btn {
+  background-color: #1976d2;
+  color: white;
+}
+
+.guardar-btn:hover {
+  background-color: #1565c0;
+  transform: scale(1.05);
+}
+
+.cerrar-btn {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+.cerrar-btn:hover {
+  background-color: #d5d5d5;
+  transform: scale(1.05);
+}
