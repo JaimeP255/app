@@ -48,23 +48,48 @@
   <!-- Input oculto para subir imágenes -->
   <input type="file" id="imageInput" accept="image/*" class="hidden">
 
-  <!-- Modal editar catálogo -->
-  <div id="modalCatalogo" class="modal oculto">
-    <div class="modal-content">
-      <h3>Editar catálogo</h3>
-      <form id="catalogoForm">
-        <label><input type="checkbox" value="gorros"> Gorros</label><br>
-        <label><input type="checkbox" value="partesArriba"> Partes de arriba</label><br>
-        <label><input type="checkbox" value="partesAbajo"> Partes de abajo</label><br>
-        <label><input type="checkbox" value="zapatillas"> Zapatillas</label><br>
-        <label><input type="checkbox" value="ropaInterior"> Ropa interior</label><br>
-        <label><input type="checkbox" value="enteros"> Enteros</label><br>
-        <label><input type="checkbox" value="accesorios"> Accesorios</label><br>
-        <button type="submit">Guardar</button>
-      </form>
-      <button id="cerrarModal">Cerrar</button>
-    </div>
+  <!-- Modal editar catálogo moderno -->
+<div id="modalCatalogo" class="modal oculto">
+  <div class="modal-content">
+    <h3>Editar catálogo</h3>
+    <form id="catalogoForm" class="categorias-form">
+      <div class="categorias-grid">
+        <label class="categoria-card">
+          <input type="checkbox" value="gorros">
+          <span>Gorros</span>
+        </label>
+        <label class="categoria-card">
+          <input type="checkbox" value="partesArriba">
+          <span>Partes de arriba</span>
+        </label>
+        <label class="categoria-card">
+          <input type="checkbox" value="partesAbajo">
+          <span>Partes de abajo</span>
+        </label>
+        <label class="categoria-card">
+          <input type="checkbox" value="zapatillas">
+          <span>Zapatillas</span>
+        </label>
+        <label class="categoria-card">
+          <input type="checkbox" value="ropaInterior">
+          <span>Ropa interior</span>
+        </label>
+        <label class="categoria-card">
+          <input type="checkbox" value="enteros">
+          <span>Enteros</span>
+        </label>
+        <label class="categoria-card">
+          <input type="checkbox" value="accesorios">
+          <span>Accesorios</span>
+        </label>
+      </div>
+      <div class="modal-buttons">
+        <button type="submit" class="guardar-btn">Guardar</button>
+        <button type="button" id="cerrarModal" class="cerrar-btn">Cerrar</button>
+      </div>
+    </form>
   </div>
+</div>
 
   <!-- Botón de perfil -->
   <button class="perfil" id="perfilBtn">👤</button>
