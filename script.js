@@ -44,6 +44,17 @@ document.addEventListener('DOMContentLoaded', () => {
     prendas.forEach((prenda, index) => {
       const prendaDiv = document.createElement("div");
       prendaDiv.className = "prenda";
+        // --- Guardamos info en dataset para que funcione el ordenado ---
+      prendaDiv.dataset.timestamp = prenda.timestamp || Date.now();
+      prendaDiv.dataset.marca = prenda.marca || "";
+
+      if (prenda.color) {
+        const hsl = hexToHSL(prenda.color);
+        prendaDiv.dataset.hex = prenda.color;
+        prendaDiv.dataset.colorPrincipal = getMainColor(hsl.h);
+        prendaDiv.dataset.luminosidad = hsl.l;
+      }
+
 
       const img = document.createElement("img");
       img.src = prenda.url;
@@ -370,7 +381,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const reader = new FileReader();
     reader.onload = () => {
       const prendas = JSON.parse(localStorage.getItem(currentCategory)) || [];
-      prendas.push({ url: reader.result, color: null });
+      prendas.push({
+        url: reader.result,
+        color: null,
+        marca: "",
+        timestamp: Date.now()
+      });
+
       localStorage.setItem(currentCategory, JSON.stringify(prendas));
       displayCatalog(currentCategory);
 
@@ -523,6 +540,122 @@ document.addEventListener('DOMContentLoaded', () => {
     homeScreen.style.backgroundImage = `url('${fondoGuardado}')`;
   }
 
+  // --- BOTÓN ORDENAR ---
+const ordenarBtn = document.getElementById("ordenarBtn");
+const ordenarDropdown = document.getElementById("ordenarDropdown");
 
+// Abrir/cerrar desplegable
+ordenarBtn.addEventListener("click", () => {
+  ordenarDropdown.classList.toggle("show");
+});
+
+// Detectar opción seleccionada
+document.querySelectorAll("#ordenarDropdown .opcion").forEach(opcion => {
+  opcion.addEventListener("click", () => {
+    const criterio = opcion.dataset.sort;
+    ordenarPrendas(criterio);
+    ordenarDropdown.classList.remove("show");
+  });
+});
+
+// --- FUNCIONES DE COLOR ---
+// Convierte HEX a HSL
+function hexToHSL(hex) {
+  let r = 0, g = 0, b = 0;
+  hex = hex.replace(/^#/, "");
+
+  if (hex.length === 3) {
+    r = parseInt(hex[0] + hex[0], 16);
+    g = parseInt(hex[1] + hex[1], 16);
+    b = parseInt(hex[2] + hex[2], 16);
+  } else {
+    r = parseInt(hex.substring(0,2), 16);
+    g = parseInt(hex.substring(2,4), 16);
+    b = parseInt(hex.substring(4,6), 16);
+  }
+
+  r /= 255; g /= 255; b /= 255;
+  let max = Math.max(r,g,b), min = Math.min(r,g,b);
+  let h, s, l = (max + min) / 2;
+
+  if (max === min) {
+    h = s = 0; // gris
+  } else {
+    let d = max - min;
+    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+    switch(max) {
+      case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+      case g: h = (b - r) / d + 2; break;
+      case b: h = (r - g) / d + 4; break;
+    }
+    h /= 6;
+  }
+
+  return { h: Math.round(h*360), s: Math.round(s*100), l: Math.round(l*100) };
+}
+
+// Detecta color principal a partir de Hue
+function getMainColor(h) {
+  if (h < 15 || h >= 345) return "rojo";
+  if (h < 45) return "naranja";
+  if (h < 70) return "amarillo";
+  if (h < 170) return "verde";
+  if (h < 260) return "azul";
+  if (h < 320) return "morado";
+  return "rosa";
+}
+
+// Actualiza el dataset de una prenda cuando seleccionas un color en la paleta
+function actualizarColor(prendaEl, hex) {
+  const hsl = hexToHSL(hex);
+  const mainColor = getMainColor(hsl.h);
+
+  prendaEl.dataset.hex = hex;
+  prendaEl.dataset.colorPrincipal = mainColor;
+  prendaEl.dataset.luminosidad = hsl.l; // 0 = oscuro, 100 = claro
+}
+
+// --- FUNCIÓN DE ORDENAR ---
+function ordenarPrendas(criterio) {
+  const prendas = Array.from(document.querySelectorAll(".prenda"));
+  const contenedor = document.querySelector("#catalog");
+
+
+  if (criterio === "marca") {
+    prendas.sort((a, b) => {
+      const marcaA = a.dataset.marca?.toLowerCase() || "";
+      const marcaB = b.dataset.marca?.toLowerCase() || "";
+      return marcaA.localeCompare(marcaB);
+    });
+  }
+
+  if (criterio === "reciente") {
+    prendas.sort((a, b) => {
+      return (b.dataset.timestamp || 0) - (a.dataset.timestamp || 0);
+    });
+  }
+
+  if (criterio === "color") {
+    const ordenColores = ["rojo","naranja","amarillo","verde","azul","morado","rosa"];
+
+    prendas.sort((a, b) => {
+      const colorA = a.dataset.colorPrincipal || "gris";
+      const colorB = b.dataset.colorPrincipal || "gris";
+      const lA = parseInt(a.dataset.luminosidad || 50);
+      const lB = parseInt(b.dataset.luminosidad || 50);
+
+      // Primero por color principal
+      const idxA = ordenColores.indexOf(colorA);
+      const idxB = ordenColores.indexOf(colorB);
+      if (idxA !== idxB) return idxA - idxB;
+
+      // Luego de oscuro a claro
+      return lA - lB;
+    });
+  }
+
+  // Recolocar en el contenedor
+  prendas.forEach(p => contenedor.appendChild(p));
+}
 
 });
