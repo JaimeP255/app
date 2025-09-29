@@ -33,12 +33,6 @@ body {
   opacity: 1;
 }
 
-/* Espacio extra para que las opciones no queden pegadas arriba */
-.sidebar > ul {
-  margin-top: 60px;   /* Ajusta este valor (ej: 80px) según el espacio que quieras */
-  padding-left: 0;
-}
-
 .sidebar > ul > li:first-child {
   margin-top: 0; /* ya no necesitamos un margen solo en el primero */
 }
@@ -131,35 +125,37 @@ ul a {
   margin: 6px 0;
 }
 
-/* Catálogo horizontal */
+/* --- Catálogo en grid uniforme --- */
 #catalog {
-  display: flex;
-  flex-wrap: nowrap;
-  gap: 20px;
-  overflow-x: auto;
-  padding: 20px 0 20px 10px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));   /*Ancho de cada casilla del grid*/
+  gap: 6px; /* un poquito más de espacio para hover */
+  margin-top: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0;
+  overflow: visible; /* permite que las sombras y transform no se corten */
 }
 
 /* Prendas */
-/* Botón + */
+/* Botón + moderno */
 .addBtn {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 120px;
   height: 220px;
-  border-radius: 10px;
-  background: #fff;
-  border: 2px dashed #1976d2; /* 🔹 borde azul solo para el + */
-  font-size: 32px;
+  font-size: 36px;
   color: #1976d2;
   cursor: pointer;
-  transition: background 0.2s ease, transform 0.2s ease;
-  order: -1;
+  border: 2px dashed #1976d2;
+  background: #f0f4ff;
+  border-radius: 18px;
+  transition: background 0.3s ease, transform 0.3s ease;
 }
 
 .addBtn:hover {
-  background: #e3f2fd;
+  background: #e0e8ff;
   transform: scale(1.05);
 }
 
@@ -167,15 +163,15 @@ ul a {
 .prenda {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-between; /* reparte imagen arriba y marca abajo */
   align-items: center;
-  width: 140px;
-  height: 240px; 
-  border-radius: 18px;
+  width: 120px;
+  height: 220px; 
+  border-radius: 18px;    /*Lo redondeado que son los bordes*/
   background: #ffffff;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -190,26 +186,6 @@ ul a {
   object-fit: cover;
   display: block;
   border-radius: 12px 12px 0 0;
-}
-
-
-/* Botón + moderno */
-.addBtn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 36px;
-  color: #1976d2;
-  cursor: pointer;
-  border: 2px dashed #1976d2;
-  background: #f0f4ff;
-  border-radius: 18px;
-  transition: background 0.3s ease, transform 0.3s ease;
-}
-
-.addBtn:hover {
-  background: #e0e8ff;
-  transform: scale(1.05);
 }
 
 /* Botón eliminar moderno */
@@ -236,20 +212,23 @@ ul a {
   transform: scale(1.1);
 }
 
-/* Selector de color moderno */
+/* Botón de la paleta */
 .colorSelector {
-  position: absolute;
+  position: absolute;   /* importante */
   bottom: 8px;
-  left: 8px;
+  top: 6px;             /* arriba */
+  left: 6px;            /* izquierda */
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: #f5f5f5;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 16px;
+  background: #eee;
   cursor: pointer;
-  border: 1px solid #ddd;
+  border: 1px solid #ccc;
+  z-index: 10;          /* encima de la imagen */
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -496,8 +475,10 @@ ul a {
   display: flex;
   gap: 10px;
   overflow-x: auto;
-  padding: 0 10px;
-  height: 100%;
+  padding: 10px;
+  height: 180px;
+  background: rgba(0,0,0,0.6);
+  border-radius: 10px 10px 0 0;
   align-items: center;
 }
 
@@ -533,18 +514,6 @@ ul a {
   pointer-events: all;
 }
 
-
-.carrusel-contenido {
-  display: flex;
-  gap: 10px;
-  overflow-x: auto;
-  padding: 10px;
-  height: 180px;
-  background: rgba(0,0,0,0.6);
-  border-radius: 10px 10px 0 0;
-  align-items: center;
-}
-
 .texto-menu {
   position: fixed;       /* fijo junto a la hamburguesa */
   top: 15px;             /* mismo top que la hamburguesa */
@@ -565,29 +534,6 @@ ul a {
 .texto-menu.visible {
   opacity: 1;
   transform: translateX(0);
-}
-
-/* Asegura que cada prenda sea contenedor relativo */
-.prenda {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between; /* reparte imagen arriba y marca abajo */
-  align-items: center;
-  width: 120px;
-  height: 220px;   /* todas iguales */
-  border-radius: 10px;
-  background-color: #fff;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  position: relative;
-  overflow: visible;
-}
-
-.prenda img {
-  width: 100%;
-  height: 160px;   /* o lo que necesites */
-  object-fit: cover;
-  display: block;
-  border-radius: 12px 12px 0 0;
 }
 
 .eliminarBtn {
@@ -612,18 +558,6 @@ ul a {
   display: flex;
   gap: 6px;
   z-index: 10;
-}
-
-.colorSelector {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  background: #eee;
-  cursor: pointer;
 }
 
 /* Mantener el bloque de marca debajo de la prenda */
@@ -683,24 +617,6 @@ ul a {
 
 .marcaItem:hover {
   background-color: #f0f0f0;
-}
-
-/* Botón de la paleta */
-.colorSelector {
-  position: absolute;   /* importante */
-  top: 6px;             /* arriba */
-  left: 6px;            /* izquierda */
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  background: #eee;
-  cursor: pointer;
-  border: 1px solid #ccc;
-  z-index: 10;          /* encima de la imagen */
 }
 
 .marcaDropdown, .marcaDropdown .marcaItem, .marcaInput {
@@ -849,37 +765,6 @@ ul a {
 .dropdown .opcion:hover {
   background: #f5f9ff;
   padding-left: 20px; /* efecto de desplazamiento */
-}
-
-/* --- Catálogo en grid uniforme --- */
-#catalog {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  gap: 6px; /* un poquito más de espacio para hover */
-  margin-top: 10px;
-  width: 100%;
-  box-sizing: border-box;
-  padding: 0;
-  overflow: visible; /* permite que las sombras y transform no se corten */
-}
-
-
-.prenda {
-  display: flex;
-  flex-direction: column; /* si la imagen va arriba y el + abajo */
-  align-items: center;    /* centra horizontalmente */
-  justify-content: center; /* centra verticalmente dentro del contenedor */
-  position: relative;
-  overflow: visible;
-}
-
-
-.prenda img {
-  width: 100%;
-  height: 160px;   /* o lo que necesites */
-  object-fit: cover;
-  display: block;
-  border-radius: 12px 12px 0 0;
 }
 
 .prenda .contenido {
