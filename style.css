@@ -128,8 +128,8 @@ ul a {
 /* --- Catálogo en grid uniforme --- */
 #catalog {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(145px, 1fr));   /*Ancho de cada casilla del grid*/
-  gap: 6px; /* un poquito más de espacio para hover */
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));   /*Ancho de cada casilla del grid*/
+  gap: 14px; /* un poquito más de espacio para hover */
   margin-top: 10px;
   width: 100%;
   box-sizing: border-box;
