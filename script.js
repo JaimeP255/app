@@ -558,6 +558,12 @@ document.querySelectorAll("#ordenarDropdown .opcion").forEach(opcion => {
   });
 });
 
+document.addEventListener("click", ()=>{
+  ordenarDropdown.classList.remove("show");
+});
+
+ordenarBtn.addEventListener("click",(e)=> {e.stopPropagation();});
+
 // --- FUNCIONES DE COLOR ---
 // Convierte HEX a HSL
 function hexToHSL(hex) {
