@@ -186,11 +186,12 @@ ul a {
 
 .prenda img {
   width: 100%;
-  height: 160px;
+  height: 160px;   /* o lo que necesites */
   object-fit: cover;
-  border-top-left-radius: 18px;
-  border-top-right-radius: 18px;
+  display: block;
+  border-radius: 12px 12px 0 0;
 }
+
 
 /* Botón + moderno */
 .addBtn {
@@ -583,9 +584,10 @@ ul a {
 
 .prenda img {
   width: 100%;
-  height: 160px;   /* altura fija para la foto */
+  height: 160px;   /* o lo que necesites */
   object-fit: cover;
-  border-radius: 8px 8px 0 0;
+  display: block;
+  border-radius: 12px 12px 0 0;
 }
 
 .eliminarBtn {
@@ -847,4 +849,40 @@ ul a {
 .dropdown .opcion:hover {
   background: #f5f9ff;
   padding-left: 20px; /* efecto de desplazamiento */
+}
+
+/* --- Catálogo en grid uniforme --- */
+#catalog {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 6px; /* un poquito más de espacio para hover */
+  margin-top: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0;
+  overflow: visible; /* permite que las sombras y transform no se corten */
+}
+
+
+.prenda {
+  display: flex;
+  flex-direction: column; /* si la imagen va arriba y el + abajo */
+  align-items: center;    /* centra horizontalmente */
+  justify-content: center; /* centra verticalmente dentro del contenedor */
+  position: relative;
+  overflow: visible;
+}
+
+
+.prenda img {
+  width: 100%;
+  height: 160px;   /* o lo que necesites */
+  object-fit: cover;
+  display: block;
+  border-radius: 12px 12px 0 0;
+}
+
+.prenda .contenido {
+  padding: 10px;
+  font-size: 14px;
 }
