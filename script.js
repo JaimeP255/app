@@ -375,12 +375,16 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   fileInput.addEventListener("change", (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
+  const files = Array.from(e.target.files);
+  if (files.length === 0) return;
 
+  const prendas = JSON.parse(localStorage.getItem(currentCategory)) || [];
+
+  let loaded = 0;
+
+  files.forEach((file) => {
     const reader = new FileReader();
     reader.onload = () => {
-      const prendas = JSON.parse(localStorage.getItem(currentCategory)) || [];
       prendas.push({
         url: reader.result,
         color: null,
@@ -388,17 +392,22 @@ document.addEventListener('DOMContentLoaded', () => {
         timestamp: Date.now()
       });
 
-      localStorage.setItem(currentCategory, JSON.stringify(prendas));
-      displayCatalog(currentCategory);
+      loaded++;
+      if (loaded === files.length) {
+        localStorage.setItem(currentCategory, JSON.stringify(prendas));
+        displayCatalog(currentCategory);
 
-      notification.classList.remove("hidden");
-      setTimeout(() => notification.classList.add("hidden"), 2000);
+        notification.classList.remove("hidden");
+        setTimeout(() => notification.classList.add("hidden"), 2000);
+      }
     };
     reader.readAsDataURL(file);
-
-    //Resetear input
-    e.target.value = "";
   });
+
+  // Resetear input
+  e.target.value = "";
+});
+
 
   // Crear menú dinámico
   Object.entries(categoriasDisponibles).forEach(([key, label]) => {
