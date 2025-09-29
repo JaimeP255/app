@@ -128,7 +128,7 @@ ul a {
 /* --- Catálogo en grid uniforme --- */
 #catalog {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));   /*Ancho de cada casilla del grid*/
+  grid-template-columns: repeat(auto-fill, minmax(145px, 1fr));   /*Ancho de cada casilla del grid*/
   gap: 6px; /* un poquito más de espacio para hover */
   margin-top: 10px;
   width: 100%;
@@ -143,7 +143,7 @@ ul a {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 120px;
+  width: 145px;
   height: 220px;
   font-size: 36px;
   color: #1976d2;
@@ -165,7 +165,7 @@ ul a {
   flex-direction: column;
   justify-content: space-between; /* reparte imagen arriba y marca abajo */
   align-items: center;
-  width: 120px;
+  width: 145px;
   height: 220px; 
   border-radius: 18px;    /*Lo redondeado que son los bordes*/
   background: #ffffff;
@@ -182,10 +182,10 @@ ul a {
 
 .prenda img {
   width: 100%;
-  height: 160px;   /* o lo que necesites */
+  height: 170px;   /* o lo que necesites */
   object-fit: cover;
   display: block;
-  border-radius: 12px 12px 0 0;
+  border-radius: 18px;
 }
 
 /* Botón eliminar moderno */
@@ -562,15 +562,15 @@ ul a {
 
 /* Mantener el bloque de marca debajo de la prenda */
 .marcaDiv {
-  margin-top: 10px;
+  width: 90%;
   padding: 6px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background: #f8f8f8;
+  border-radius: 18px;
+  background: #fff;
   text-align: center;
   cursor: pointer;
   font-size: 14px; /* 🔹 tamaño de letra del botón */
   position: relative; /* necesario para el dropdown */
+  overflow: hidden;
 }
 
 
