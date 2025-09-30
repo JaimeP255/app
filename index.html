@@ -45,6 +45,34 @@
         <div class="opcion" data-sort="reciente">Por recién añadido</div>
       </div>
     </div>
+    
+    <button id="filtrarBtn">Filtrar ▾</button>
+    <div id="filtrarDropdown" class="dropdown"><div->
+      <div class="subtitulo">Por color</div>
+      <div class="opcion" data-color="todos">Todos</div>
+      <div class="opcion" data-color="rojo">Rojo</div>
+      <div class="opcion" data-color="naranja">Naranja</div>
+      <div class="opcion" data-color="amarillo">Amarillo</div>
+      <div class="opcion" data-color="verde">Verde</div>
+      <div class="opcion" data-color="azul">Azul</div>
+      <div class="opcion" data-color="morado">Morado</div>
+      <div class="opcion" data-color="rosa">Rosa</div>
+
+      <div class="subtitulo">Por marca</div>
+      <select id="marcaSelect">
+        <option value="todas">Todas</option>
+      </select>
+    </div>
+
+
+    <!-- 🔹 Opciones de marca -->
+    <div id="marcaFiltros" class="hidden filtro-panel">
+      <select id="marcaSelect">
+        <option value="todas">Todas</option>
+        <!-- 👇 Este select lo rellenas con JS según las marcas guardadas -->
+      </select>
+    </div>
+
 
     <!-- 🔹 Aquí van las prendas -->
     <div id="catalog"></div>
