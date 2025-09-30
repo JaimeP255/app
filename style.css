@@ -145,6 +145,14 @@ ul a {
   overflow: visible; /* permite que las sombras y transform no se corten */
 }
 
+/* Aplica solo a ese input concreto */
+#imageInput {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
 /* Prendas */
 /* Botón + moderno */
 .addBtn {
