@@ -105,9 +105,11 @@ document.addEventListener('DOMContentLoaded', () => {
             prenda.color = color;
             colorSelector.style.backgroundColor = color;
             prendaDiv.style.boxShadow = `0 0 0 4px ${color}`;
+            actualizarColor(prendaDiv, color);   // 👈 añadir
             colorModal.style.display = "none";
             localStorage.setItem(category, JSON.stringify(prendas));
           };
+
           fila.appendChild(swatch);
         });
 
@@ -142,172 +144,172 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const marcasDisponibles = [
            "Zara",
-  "Mango",
-  "Bershka",
-  "Massimo Dutti",
-  "Stradivarius",
-  "Pull&Bear",
-  "Oysho",
-  "Desigual",
-  "Adolfo Domínguez",
-  "Bimba y Lola",
-  "El Corte Inglés",
-  "H&M",
-  "Primark",
-  "Shein",
-  "Nike",
-  "Adidas",
-  "Reebok",
-  "Puma",
-  "Calvin Klein",
-  "Tommy Hilfiger",
-  "Levi's",
-  "Pepe Jeans",
-  "Diesel",
-  "Levi's",
-  "Lacoste",
-  "Ralph Lauren",
-  "Carhartt",
-  "Vans",
-  "Converse",
-  "New Balance",
-  "Asics",
-  "Under Armour",
-  "Superdry",
-  "Abercrombie & Fitch",
-  "Hollister",
-  "Uniqlo",
-  "Jack & Jones",
-  "Benetton",
-  "C&A",
-  "Kiabi",
-  "Sfera",
-  "Mayoral",
-  "Cortefiel",
-  "Women'secret",
-  "Springfield",
-  "Tendam",
-  "AWWG",
-  "Sociedad Textil Lonia",
-  "Tous",
-  "Lois",
-  "Tenth",
-  "Polinesia",
-  "Decathlon",
-  "Calzedonia",
-  "Intimissimi",
-  "Tezenis",
-  "Hunkemöller",
-  "Oysho",
-  "Calvin Klein Underwear",
-  "Victoria's Secret",
-  "Agent Provocateur",
-  "Sloggi",
-  "Triumph",
-  "Playtex",
-  "Chantelle",
-  "Simone Pérèle",
-  "Wacoal",
-  "Freya",
-  "Panache",
-  "Curvy Kate",
-  "Bravissimo",
-  "Boux Avenue",
-  "Marks & Spencer",
-  "Next",
-  "River Island",
-  "Topshop",
-  "Topman",
-  "Monsoon",
-  "Accessorize",
-  "Clarks",
-  "Dr. Martens",
-  "Timberland",
-  "UGG",
-  "Hunter",
-  "Skechers",
-  "Crocs",
-  "Geox",
-  "Pikolinos",
-  "Camper",
-  "El Naturalista",
-  "Lottusse",
-  "Pretty Ballerinas",
-  "Bimba y Lola",
-  "Castañer",
-  "Manolo Blahnik",
-  "Loewe",
-  "Balenciaga",
-  "Chanel",
-  "Louis Vuitton",
-  "Gucci",
-  "Prada",
-  "Dior",
-  "Fendi",
-  "Burberry",
-  "Saint Laurent",
-  "Valentino",
-  "Givenchy",
-  "Celine",
-  "Chloé",
-  "Isabel Marant",
-  "Stella McCartney",
-  "Alexander McQueen",
-  "Victoria Beckham",
-  "Simone Rocha",
-  "JW Anderson",
-  "Acne Studios",
-  "Sacai",
-  "Loewe",
-  "Lemaire",
-  "Haider Ackermann",
-  "Dries Van Noten",
-  "Ann Demeulemeester",
-  "Haider Ackermann",
-  "Junya Watanabe",
-  "Comme des Garçons",
-  "Issey Miyake",
-  "Yohji Yamamoto",
-  "Kenzo",
-  "Sacai",
-  "Undercover",
-  "Maison Margiela",
-  "Rick Owens",
-  "Vetements",
-  "Off-White",
-  "Balenciaga",
-  "Fendi",
-  "Prada",
-  "Dior",
-  "Chanel",
-  "Louis Vuitton",
-  "Gucci",
-  "Versace",
-  "Bvlgari",
-  "Cartier",
-  "Piaget",
-  "Chopard",
-  "Tiffany & Co.",
-  "Van Cleef & Arpels",
-  "Harry Winston",
-  "Graff",
-  "De Beers",
-  "Mikimoto",
-  "David Yurman",
-  "Boucheron",
-  "Chaumet",
-  "Piaget",
-  "Chopard",
-  "Tiffany & Co.",
-  "Van Cleef & Arpels",
-  "Harry Winston",
-  "Graff",
-  "De Beers",
-  "Mikimoto",
-  "David Yurman",
-  "Boucheron",
-  "Chaumet"
-      ];
+      "Mango",
+      "Bershka",
+      "Massimo Dutti",
+      "Stradivarius",
+      "Pull&Bear",
+      "Oysho",
+      "Desigual",
+      "Adolfo Domínguez",
+      "Bimba y Lola",
+      "El Corte Inglés",
+      "H&M",
+      "Primark",
+      "Shein",
+      "Nike",
+      "Adidas",
+      "Reebok",
+      "Puma",
+      "Calvin Klein",
+      "Tommy Hilfiger",
+      "Levi's",
+      "Pepe Jeans",
+      "Diesel",
+      "Levi's",
+      "Lacoste",
+      "Ralph Lauren",
+      "Carhartt",
+      "Vans",
+      "Converse",
+      "New Balance",
+      "Asics",
+      "Under Armour",
+      "Superdry",
+      "Abercrombie & Fitch",
+      "Hollister",
+      "Uniqlo",
+      "Jack & Jones",
+      "Benetton",
+      "C&A",
+      "Kiabi",
+      "Sfera",
+      "Mayoral",
+      "Cortefiel",
+      "Women'secret",
+      "Springfield",
+      "Tendam",
+      "AWWG",
+      "Sociedad Textil Lonia",
+      "Tous",
+      "Lois",
+      "Tenth",
+      "Polinesia",
+      "Decathlon",
+      "Calzedonia",
+      "Intimissimi",
+      "Tezenis",
+      "Hunkemöller",
+      "Oysho",
+      "Calvin Klein Underwear",
+      "Victoria's Secret",
+      "Agent Provocateur",
+      "Sloggi",
+      "Triumph",
+      "Playtex",
+      "Chantelle",
+      "Simone Pérèle",
+      "Wacoal",
+      "Freya",
+      "Panache",
+      "Curvy Kate",
+      "Bravissimo",
+      "Boux Avenue",
+      "Marks & Spencer",
+      "Next",
+      "River Island",
+      "Topshop",
+      "Topman",
+      "Monsoon",
+      "Accessorize",
+      "Clarks",
+      "Dr. Martens",
+      "Timberland",
+      "UGG",
+      "Hunter",
+      "Skechers",
+      "Crocs",
+      "Geox",
+      "Pikolinos",
+      "Camper",
+      "El Naturalista",
+      "Lottusse",
+      "Pretty Ballerinas",
+      "Bimba y Lola",
+      "Castañer",
+      "Manolo Blahnik",
+      "Loewe",
+      "Balenciaga",
+      "Chanel",
+      "Louis Vuitton",
+      "Gucci",
+      "Prada",
+      "Dior",
+      "Fendi",
+      "Burberry",
+      "Saint Laurent",
+      "Valentino",
+      "Givenchy",
+      "Celine",
+      "Chloé",
+      "Isabel Marant",
+      "Stella McCartney",
+      "Alexander McQueen",
+      "Victoria Beckham",
+      "Simone Rocha",
+      "JW Anderson",
+      "Acne Studios",
+      "Sacai",
+      "Loewe",
+      "Lemaire",
+      "Haider Ackermann",
+      "Dries Van Noten",
+      "Ann Demeulemeester",
+      "Haider Ackermann",
+      "Junya Watanabe",
+      "Comme des Garçons",
+      "Issey Miyake",
+      "Yohji Yamamoto",
+      "Kenzo",
+      "Sacai",
+      "Undercover",
+      "Maison Margiela",
+      "Rick Owens",
+      "Vetements",
+      "Off-White",
+      "Balenciaga",
+      "Fendi",
+      "Prada",
+      "Dior",
+      "Chanel",
+      "Louis Vuitton",
+      "Gucci",
+      "Versace",
+      "Bvlgari",
+      "Cartier",
+      "Piaget",
+      "Chopard",
+      "Tiffany & Co.",
+      "Van Cleef & Arpels",
+      "Harry Winston",
+      "Graff",
+      "De Beers",
+      "Mikimoto",
+      "David Yurman",
+      "Boucheron",
+      "Chaumet",
+      "Piaget",
+      "Chopard",
+      "Tiffany & Co.",
+      "Van Cleef & Arpels",
+      "Harry Winston",
+      "Graff",
+      "De Beers",
+      "Mikimoto",
+      "David Yurman",
+      "Boucheron",
+      "Chaumet"
+          ];
 
       function actualizarDropdown() {
         const valor = marcaInput.value.toLowerCase();
@@ -319,6 +321,7 @@ document.addEventListener('DOMContentLoaded', () => {
             item.textContent = m;
             item.addEventListener("click", () => {
               prenda.marca = m;
+              prendaDiv.dataset.marca = m;   // 👈 añadir
               marcaDiv.textContent = m;
               marcaInput.classList.add("hidden");
               marcaDropdown.classList.add("hidden");
@@ -372,6 +375,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     catalogoSubmenu.classList.toggle("hidden"); // Pliega/Despliega el desplegable del catalogo
     closeSidebar();
+
+    // Llamar al crear opciones cuando cargue la página
+    crearOpcionesFiltro();
   }
 
   fileInput.addEventListener("change", (e) => {
@@ -552,6 +558,74 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- BOTÓN ORDENAR ---
 const ordenarBtn = document.getElementById("ordenarBtn");
 const ordenarDropdown = document.getElementById("ordenarDropdown");
+  // --- BOTÓN FILTRAR ---
+const filtrarBtn = document.getElementById("filtrarBtn");
+const filtrarDropdown = document.getElementById("filtrarDropdown");
+
+// Colores "estándar" para filtrar
+const coloresEstandar = ["rojo","naranja","amarillo","verde","azul","morado","rosa"];
+
+// Abrir/cerrar desplegable
+filtrarBtn.addEventListener("click", (e) => {
+  filtrarDropdown.classList.toggle("show");
+  e.stopPropagation();
+});
+
+// Cerrar dropdown al clicar fuera
+document.addEventListener("click", () => {
+  filtrarDropdown.classList.remove("show");
+});
+
+// Evitar que clic dentro del dropdown cierre inmediatamente
+filtrarDropdown.addEventListener("click", e => e.stopPropagation());
+
+// Crear opciones de filtro dinámicamente
+function crearOpcionesFiltro() {
+  filtrarDropdown.innerHTML = "";
+
+  // Subtitulo y opciones de color
+  const subtituloColor = document.createElement("div");
+  subtituloColor.className = "subtitulo";
+  subtituloColor.textContent = "Filtrar por color";
+  filtrarDropdown.appendChild(subtituloColor);
+
+  coloresEstandar.forEach(color => {
+    const opcion = document.createElement("div");
+    opcion.className = "opcion";
+    opcion.textContent = color.charAt(0).toUpperCase() + color.slice(1);
+    opcion.dataset.color = color;
+    opcion.addEventListener("click", () => {
+      filtrarPrendas({ color: color });
+      filtrarDropdown.classList.remove("show");
+    });
+    filtrarDropdown.appendChild(opcion);
+  });
+
+  // Subtitulo y select de marcas
+  const subtituloMarca = document.createElement("div");
+  subtituloMarca.className = "subtitulo";
+  subtituloMarca.textContent = "Filtrar por marca";
+  filtrarDropdown.appendChild(subtituloMarca);
+
+  const selectMarca = document.createElement("select");
+  selectMarca.innerHTML = `<option value="">Todas</option>`;
+
+  // Obtener todas las marcas del catálogo actual
+  const prendas = JSON.parse(localStorage.getItem(currentCategory)) || [];
+  const marcasUnicas = [...new Set(prendas.map(p => p.marca).filter(Boolean))];
+  marcasUnicas.forEach(m => {
+    const option = document.createElement("option");
+    option.value = m;
+    option.textContent = m;
+    selectMarca.appendChild(option);
+  });
+
+  selectMarca.addEventListener("change", () => {
+    filtrarPrendas({ marca: selectMarca.value });
+  });
+
+  filtrarDropdown.appendChild(selectMarca);
+}
 
 // Abrir/cerrar desplegable
 ordenarBtn.addEventListener("click", () => {
@@ -671,6 +745,24 @@ function ordenarPrendas(criterio) {
 
   // Recolocar en el contenedor
   prendas.forEach(p => contenedor.appendChild(p));
+}
+
+// --- FUNCIÓN FILTRAR ---
+function filtrarPrendas(filtro) {
+  const prendas = Array.from(document.querySelectorAll(".prenda"));
+  prendas.forEach(p => {
+    let mostrar = true;
+
+    if (filtro.color) {
+      mostrar = p.dataset.colorPrincipal === filtro.color;
+    }
+
+    if (filtro.marca) {
+      mostrar = mostrar && p.dataset.marca === filtro.marca;
+    }
+
+    p.style.display = mostrar ? "block" : "none";
+  });
 }
 
 });
