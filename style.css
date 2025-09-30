@@ -1,3 +1,9 @@
+html, body {
+  height: auto;       /* deja que crezca */
+  min-height: 100vh;  /* al menos la pantalla completa */
+  overflow-y: auto;   /* activa scroll vertical si hace falta */
+}
+
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
@@ -47,6 +53,8 @@ body {
   transition: margin-left 0.3s ease;
   padding: 20px;
   margin-left: 0;
+  height: auto;       /* crece con lo que haya dentro */
+  min-height: 100%;  /* ocupa como mínimo toda la pantalla */
 }
 
 .main.desplazado {
