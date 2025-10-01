@@ -333,6 +333,7 @@ document.addEventListener('DOMContentLoaded', () => {
               root.innerHTML = ""; // cerrar menú
               marcaInput.classList.add("hidden"); // 👈 cerrar input actual
               localStorage.setItem(category, JSON.stringify(prendas));
+              crearOpcionesFiltro();
             });
             dropdown.appendChild(item);
           });
@@ -593,7 +594,6 @@ const coloresEstandar = ["rojo","naranja","amarillo","verde","azul","morado","ro
 // Abrir/cerrar desplegable
 filtrarBtn.addEventListener("click", (e) => {
   filtrarDropdown.classList.toggle("show");
-  crearOpcionesFiltro();
   e.stopPropagation();
 });
 
