@@ -139,9 +139,6 @@ document.addEventListener('DOMContentLoaded', () => {
       marcaInput.className = "marcaInput hidden";
       marcaInput.placeholder = "Escribe para buscar marca";
 
-      const marcaDropdown = document.createElement("div");
-      marcaDropdown.className = "marcaDropdown hidden";
-
       const marcasDisponibles = [
            "Zara",
       "Mango",
@@ -311,43 +308,72 @@ document.addEventListener('DOMContentLoaded', () => {
       "Chaumet"
           ];
 
-      function actualizarDropdown() {
+      function abrirDropdown(trigger, prenda, marcaInput) {
+        const root = document.getElementById("dropdown-root");
+        root.innerHTML = ""; // limpiamos cualquier dropdown anterior
+        document.removeEventListener("click", window._lastDropdownHandler);
+        document.querySelectorAll(".marcaInput").forEach(input => input.classList.add("hidden"));
+
+        const dropdown = document.createElement("div");
+        dropdown.className = "marcaDropdown";
+
+        // Generar opciones filtradas
         const valor = marcaInput.value.toLowerCase();
-        marcaDropdown.innerHTML = "";
-        marcasDisponibles.filter(m => m.toLowerCase().includes(valor))
+        marcasDisponibles
+          .filter(m => m.toLowerCase().includes(valor))
           .forEach(m => {
             const item = document.createElement("div");
             item.className = "marcaItem";
             item.textContent = m;
             item.addEventListener("click", () => {
               prenda.marca = m;
-              prendaDiv.dataset.marca = m;   // 👈 añadir
-              marcaDiv.textContent = m;
+              prendaDiv.dataset.marca = m;
+              trigger.textContent = m;
               marcaInput.classList.add("hidden");
-              marcaDropdown.classList.add("hidden");
+              root.innerHTML = ""; // cerrar menú
+              marcaInput.classList.add("hidden"); // 👈 cerrar input actual
               localStorage.setItem(category, JSON.stringify(prendas));
             });
-            marcaDropdown.appendChild(item);
+            dropdown.appendChild(item);
           });
-        marcaDropdown.classList.toggle("hidden", marcaDropdown.innerHTML === "");
+
+        // Posicionar el dropdown debajo del trigger
+        const rect = trigger.getBoundingClientRect();
+        dropdown.style.top = rect.bottom + window.scrollY + 4 + "px";
+        dropdown.style.left = rect.left + window.scrollX + "px";
+        dropdown.style.width = rect.width + "px";
+
+        root.appendChild(dropdown);
+
+        // Cerrar si hago click fuera
+        function handleClickOutside(e) {
+            if (!dropdown.contains(e.target) && e.target !== trigger && e.target !== marcaInput) {
+              root.innerHTML = "";
+              marcaInput.classList.add("hidden");
+              document.removeEventListener("click", handleClickOutside);
+            }
+        }
+        document.addEventListener("click", handleClickOutside);
+
+        window._lastDropdownHandler = handleClickOutside;
+
+        marcaInput.classList.remove("hidden");
+        marcaInput.focus();
+
       }
+
 
       marcaDiv.addEventListener("click", () => {
         marcaInput.value = "";
-        marcaInput.classList.toggle("hidden");
-        marcaDropdown.classList.toggle("hidden");
+        marcaInput.classList.remove("hidden");
         marcaInput.focus();
-        actualizarDropdown();
+        abrirDropdown(marcaDiv, prenda, marcaInput);
       });
 
-      marcaInput.addEventListener("input", actualizarDropdown);
-
-      document.addEventListener("click", (e) => {
-        if (!marcaDiv.contains(e.target) && !marcaInput.contains(e.target) && !marcaDropdown.contains(e.target)) {
-          marcaInput.classList.add("hidden");
-          marcaDropdown.classList.add("hidden");
-        }
+      marcaInput.addEventListener("input", () => {
+        abrirDropdown(marcaDiv, prenda, marcaInput);
       });
+
 
       // Append al DOM
       prendaDiv.appendChild(img);
@@ -355,7 +381,6 @@ document.addEventListener('DOMContentLoaded', () => {
       prendaDiv.appendChild(colorSelector); // ✅ directamente en prendaDiv para esquina superior
       prendaDiv.appendChild(marcaDiv);
       prendaDiv.appendChild(marcaInput);
-      prendaDiv.appendChild(marcaDropdown);
       catalog.appendChild(prendaDiv);
     });
 

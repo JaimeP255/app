@@ -593,20 +593,18 @@ ul a {
   font-size: 14px;
 }
 
-/* Dropdown de sugerencias */
+/* Dropdown de sugerencias*/
 .marcaDropdown {
-  position: absolute;
-  top: calc(100% + 4px); /* pequeño espacio debajo del input/texto */
-  left: 0;
-  width: 100%;
+  position: absolute;         /* ahora se posiciona respecto al body */
   max-height: 150px;
   overflow-y: auto;
   border: 1px solid #ccc;
   border-radius: 8px;
   background: #fff;
-  z-index: 2000;
+  z-index: 9999;              /* siempre por encima */
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
+
 
 .marcaDropdown.hidden {
   display: none;
@@ -839,5 +837,3 @@ ul a {
   border: 1px solid #ccc;
   font-size: 14px;
 }
-
-
