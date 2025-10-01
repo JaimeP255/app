@@ -647,6 +647,7 @@ function crearOpcionesFiltro() {
 
   selectMarca.addEventListener("change", () => {
     filtrarPrendas({ marca: selectMarca.value });
+    filtrarDropdown.classList.remove("show");
   });
 
   filtrarDropdown.appendChild(selectMarca);
