@@ -593,6 +593,7 @@ const coloresEstandar = ["rojo","naranja","amarillo","verde","azul","morado","ro
 // Abrir/cerrar desplegable
 filtrarBtn.addEventListener("click", (e) => {
   filtrarDropdown.classList.toggle("show");
+  crearOpcionesFiltro();
   e.stopPropagation();
 });
 
