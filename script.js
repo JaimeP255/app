@@ -11,18 +11,23 @@ document.addEventListener('DOMContentLoaded', () => {
   const notification = document.getElementById("notification");
 
   const categoriasDisponibles = {
-    gorros: "Gorros",
-    partesArriba: "Partes de arriba",
-    partesAbajo: "Partes de abajo",
+    gorras: "Gorras",
+    chaquetas: "Chaquetas",
+    sudaderas: "Sudaderas",
+    camisas: "Camisas",
+    polos: "Polos",
+    camisetas: "Camisetas",
+    tops: "Tops",
+    vestidos: "Vestidos",
+    pantaloneslargos: "Pantalones largos",
+    pantalonescortos: "Pantalones cortos",
+    faldas: "Faldas",
     zapatillas: "Zapatillas",
-    ropaInterior: "Ropa interior",
-    enteros: "Enteros",
-    accesorios: "Accesorios"
   };
 
   let categoriasActivas =
     JSON.parse(localStorage.getItem("categoriasActivas")) || [
-      "gorros", "partesArriba", "partesAbajo", "zapatillas"
+      "gorras"
     ];
 
   //Cierra el sidebar
