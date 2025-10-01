@@ -609,23 +609,29 @@ filtrarDropdown.addEventListener("click", e => e.stopPropagation());
 function crearOpcionesFiltro() {
   filtrarDropdown.innerHTML = "";
 
-  // Subtitulo y opciones de color
+  // Subtitulo y select de color
   const subtituloColor = document.createElement("div");
   subtituloColor.className = "subtitulo";
   subtituloColor.textContent = "Filtrar por color";
   filtrarDropdown.appendChild(subtituloColor);
 
+  const selectColor = document.createElement("select");
+  selectColor.innerHTML = `<option value="">Todos</option>`;
+
   coloresEstandar.forEach(color => {
-    const opcion = document.createElement("div");
-    opcion.className = "opcion";
-    opcion.textContent = color.charAt(0).toUpperCase() + color.slice(1);
-    opcion.dataset.color = color;
-    opcion.addEventListener("click", () => {
-      filtrarPrendas({ color: color });
-      filtrarDropdown.classList.remove("show");
-    });
-    filtrarDropdown.appendChild(opcion);
+    const option = document.createElement("option");
+    option.value = color;
+    option.textContent = color.charAt(0).toUpperCase() + color.slice(1);
+    selectColor.appendChild(option);
   });
+
+  selectColor.addEventListener("change", () => {
+    filtrarPrendas({ color: selectColor.value });
+    filtrarDropdown.classList.remove("show");
+  });
+
+  filtrarDropdown.appendChild(selectColor);
+
 
   // Subtitulo y select de marcas
   const subtituloMarca = document.createElement("div");
