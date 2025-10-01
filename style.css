@@ -786,14 +786,22 @@ ul a {
 }
 
 #filtrarBtn {
-  background-color: #ffffff;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  padding: 6px 12px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #1976d2, #125ea2);
+  color: white;
   cursor: pointer;
-  font-size: 14px;
-  position: relative;
+  font-size: 16px;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transition: background 0.3s ease, transform 0.2s ease;  position: relative;
   margin-left: 8px; /* separa de otros botones si quieres */
+}
+
+#filtrarBtn:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #1565c0, #0d47a1);
 }
 
 /* Dropdown del botón de filtrar */
