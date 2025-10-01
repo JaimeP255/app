@@ -779,6 +779,12 @@ ul a {
 }
 
 /* Botón de filtrar (igual que ordenar) */
+.filtrar-container {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 16px; /* separación respecto al catálogo */
+}
+
 #filtrarBtn {
   background-color: #ffffff;
   border: 1px solid #ccc;

@@ -333,6 +333,7 @@ document.addEventListener('DOMContentLoaded', () => {
               root.innerHTML = ""; // cerrar menú
               marcaInput.classList.add("hidden"); // 👈 cerrar input actual
               localStorage.setItem(category, JSON.stringify(prendas));
+              crearOpcionesFiltro();
             });
             dropdown.appendChild(item);
           });
@@ -647,6 +648,7 @@ function crearOpcionesFiltro() {
 
   selectMarca.addEventListener("change", () => {
     filtrarPrendas({ marca: selectMarca.value });
+    filtrarDropdown.classList.remove("show");
   });
 
   filtrarDropdown.appendChild(selectMarca);
