@@ -665,6 +665,7 @@ document.querySelectorAll("#ordenarDropdown .opcion").forEach(opcion => {
     const criterio = opcion.dataset.sort;
     ordenarPrendas(criterio);
     ordenarDropdown.classList.remove("show");
+    ordenarBtn.textContent=`Ordenar: ${opcion.textContent}`;
   });
 });
 
