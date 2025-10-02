@@ -92,6 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ["#fb8c00","#9d5f01ff","#c57704ff","#fbad38ff","#f6c77cff","#fee9a4ff"],
         ["#00ff0dff","#014f05ff","#018208ff","#4cfc52ff","#86ff8aff","#abfbb1ff"],
         ["#c800ffff","#51025fff","#68037aff","#ba02dbff","#e973fcff","#f7a1faff"],
+        ["#ff00e1ff","#62064eff","#990a7fff","#e312bcff","#f05acbff","#fdb7eeff"],
         ["#f02222ff","#800505ff","#af2b2bff","#fb3f3fff","#fe6f6fff","#faa2a2ff"],
         ["#fbff00ff","#ab9d0cff","#cbc805ff","#feed35ff","#f8f27eff","#fcfe94ff"]
       ];
