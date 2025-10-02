@@ -6,10 +6,11 @@ html, body {
 
 body {
   margin: 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Cormorant Garamond';
   background-color: #fdfdfd;
   color: #333;
   overflow-x: hidden;
+  font-size: 17px;
 }
 
 .hidden {
@@ -40,7 +41,7 @@ body {
 }
 
 .sidebar > ul > li:first-child {
-  margin-top: 0; /* ya no necesitamos un margen solo en el primero */
+  margin-top: 15%; /* ya no necesitamos un margen solo en el primero */
 }
 
 .sidebar > ul {
@@ -112,7 +113,7 @@ ul {
 }
 
 ul li {
-  margin: 12px 0;
+  margin: 16px 0;
 }
 
 ul a {
@@ -205,8 +206,8 @@ ul a {
   color: white;
   border: none;
   border-radius: 50%;
-  width: 26px;
-  height: 26px;
+  width: 28px;
+  height: 28px;
   font-size: 16px;
   cursor: pointer;
   display: flex;
@@ -444,7 +445,7 @@ ul a {
 }
 
 .perfil-menu li {
-  padding: 8px 16px;
+  padding: 3px 16px;
 }
 
 .perfil-menu li a {
@@ -641,7 +642,7 @@ ul a {
 /* 🧩 Grid de categorías */
 .categorias-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(45%,160px), 1fr));
   gap: 16px;
   margin-bottom: 24px;
 }
@@ -851,4 +852,8 @@ ul a {
   border-radius: 6px;
   border: 1px solid #ccc;
   font-size: 14px;
+}
+
+.separadorCategorias{
+  padding-bottom: min(5%,3px);
 }

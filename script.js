@@ -26,8 +26,8 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   let categoriasActivas =
-    JSON.parse(localStorage.getItem("categoriasActivas")) || [
-      "gorras"
+    JSON.parse(localStorage.getItem("categoriasActivas")) || [    //Aparecen o las guardadas previamente o las del array
+      "gorras", "sudaderas", "camisetas", "pantalones cortos", "zapatillas"
     ];
 
   //Cierra el sidebar
@@ -446,6 +446,17 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
+  //Crear los divs de cada parte
+  var divCabeza = document.createElement("div");
+  var divPartesArriba = document.createElement("div");
+  var divPartesAbajo = document.createElement("div");
+  var divPies = document.createElement("div");
+
+  divCabeza.classList.add("separadorCategorias");
+  divPartesArriba.classList.add("separadorCategorias");
+  divPartesAbajo.classList.add("separadorCategorias");
+  divPies.classList.add("separadorCategorias");
+
   // Crear menú dinámico
   Object.entries(categoriasDisponibles).forEach(([key, label]) => {
     if (categoriasActivas.includes(key)) {
@@ -460,9 +471,36 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       li.appendChild(link);
-      catalogoSubmenu.appendChild(li);
+      switch(key){
+        case "gorras":
+          divCabeza.append(li);
+          break;
+        case "chaquetas":
+        case "sudaderas":
+        case "camisas":
+        case "polos":
+        case "camisetas":
+        case "tops":
+        case "vestidos":
+          divPartesArriba.append(li);
+          break;
+        case "pantalonescortos":
+        case "pantaloneslargos":
+        case "faldas":
+          divPartesAbajo.append(li);
+          break;
+        case "zapatillas":
+          divPies.append(li);
+          break;
+      }
+      //catalogoSubmenu.appendChild(li);
     }
   });
+
+  catalogoSubmenu.appendChild(divCabeza);
+  catalogoSubmenu.appendChild(divPartesArriba);
+  catalogoSubmenu.appendChild(divPartesAbajo);
+  catalogoSubmenu.appendChild(divPies);
 
   menuBtn.addEventListener("click", ()=>{ //Cuando se clicka la hamburguesa (El boton del menu)
     const isClosed = sidebar.classList.contains("oculto");
@@ -519,6 +557,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   perfilBtn.addEventListener("click", (e) => {
     e.stopPropagation();
+    closeSidebar();
     perfilMenu.classList.toggle("activo"); // 👈 ahora usamos activo
   });
 
