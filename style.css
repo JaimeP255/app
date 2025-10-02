@@ -852,3 +852,7 @@ ul a {
   border: 1px solid #ccc;
   font-size: 14px;
 }
+
+.separadorCategorias{
+  padding-bottom: max(1%,5px);
+}
