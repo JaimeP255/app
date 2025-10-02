@@ -26,8 +26,8 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   let categoriasActivas =
-    JSON.parse(localStorage.getItem("categoriasActivas")) || [
-      "gorras"
+    JSON.parse(localStorage.getItem("categoriasActivas")) || [    //Aparecen o las guardadas previamente o las del array
+      "gorras", "sudaderas", "camisetas", "pantalones cortos", "zapatillas"
     ];
 
   //Cierra el sidebar
