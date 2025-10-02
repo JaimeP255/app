@@ -557,6 +557,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   perfilBtn.addEventListener("click", (e) => {
     e.stopPropagation();
+    closeSidebar();
     perfilMenu.classList.toggle("activo"); // 👈 ahora usamos activo
   });
 
