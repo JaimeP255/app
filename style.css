@@ -6,7 +6,7 @@ html, body {
 
 body {
   margin: 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Cormorant Garamond';
   background-color: #fdfdfd;
   color: #333;
   overflow-x: hidden;
@@ -40,7 +40,7 @@ body {
 }
 
 .sidebar > ul > li:first-child {
-  margin-top: 0; /* ya no necesitamos un margen solo en el primero */
+  margin-top: 15%; /* ya no necesitamos un margen solo en el primero */
 }
 
 .sidebar > ul {
@@ -112,7 +112,7 @@ ul {
 }
 
 ul li {
-  margin: 12px 0;
+  margin: 16px 0;
 }
 
 ul a {
@@ -444,7 +444,7 @@ ul a {
 }
 
 .perfil-menu li {
-  padding: 8px 16px;
+  padding: 3px 16px;
 }
 
 .perfil-menu li a {
