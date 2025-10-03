@@ -857,3 +857,7 @@ ul a {
 .separadorCategorias{
   padding-bottom: min(5%,3px);
 }
+
+.separadorCategorias a{
+  color: #987d7d;
+}

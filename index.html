@@ -171,5 +171,13 @@
 
   <!-- Script -->
   <script src="script.js"></script>
+
+  <script>
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("/app/service-worker.js")
+      .then(() => console.log("Service Worker registrado"))
+      .catch(err => console.error("Error registrando SW", err));
+  }
+  </script>
 </body>
 </html>
