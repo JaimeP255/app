@@ -39,6 +39,35 @@ document.addEventListener('DOMContentLoaded', () => {
     textoMenu.classList.remove("visible"); // Ocultar texto
   }
 
+
+  //Funcion que cambia los archivos a .jpeg
+  function fileToJPEG(file, callback) {
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+      const img = new Image();
+      img.onload = function() {
+        // Creamos un canvas del tamaño de la imagen original
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+        canvas.width = img.width;
+        canvas.height = img.height;
+
+        // Dibujamos la imagen original en el canvas
+        ctx.drawImage(img, 0, 0);
+
+        // Exportamos a JPEG con calidad 0.8
+        const jpegData = canvas.toDataURL("image/jpeg", 0.8);
+
+        callback(jpegData); // devolvemos la imagen en formato JPEG
+      };
+      img.src = e.target.result;
+    };
+
+    reader.readAsDataURL(file);
+  }
+
+
   function displayCatalog(category) {
     currentCategory = category;
     const catalog = document.getElementById("catalog");
@@ -420,10 +449,10 @@ document.addEventListener('DOMContentLoaded', () => {
   let loaded = 0;
 
   files.forEach((file) => {
-    const reader = new FileReader();
-    reader.onload = () => {
+    
+    fileToJPEG(file,(jpegData) => {
       prendas.push({
-        url: reader.result,
+        url: jpegData,
         color: null,
         marca: "",
         timestamp: Date.now()
@@ -437,7 +466,7 @@ document.addEventListener('DOMContentLoaded', () => {
         notification.classList.remove("hidden");
         setTimeout(() => notification.classList.add("hidden"), 2000);
       }
-    };
+    });
     reader.readAsDataURL(file);
   });
 
