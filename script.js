@@ -11,18 +11,18 @@ document.addEventListener('DOMContentLoaded', () => {
   const notification = document.getElementById("notification");
 
   const categoriasDisponibles = {
-    gorras: "Gorras",
-    chaquetas: "Chaquetas",
-    sudaderas: "Sudaderas",
-    camisas: "Camisas",
-    polos: "Polos",
-    camisetas: "Camisetas",
-    tops: "Tops",
-    vestidos: "Vestidos",
-    pantaloneslargos: "Pantalones largos",
-    pantalonescortos: "Pantalones cortos",
-    faldas: "Faldas",
-    zapatillas: "Zapatillas",
+    gorras: "GORRAS",
+    chaquetas: "CHAQUETAS",
+    sudaderas: "SUDADERAS",
+    camisas: "CAMISAS",
+    polos: "POLOS",
+    camisetas: "CAMISETAS",
+    tops: "TOPS",
+    vestidos: "VESTIDOS",
+    pantaloneslargos: "PANTALONES LARGOS",
+    pantalonescortos: "PANTALONES CORTOS",
+    faldas: "FALDAS",
+    zapatillas: "ZAPATILLAS",
   };
 
   let categoriasActivas =
