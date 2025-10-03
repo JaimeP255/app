@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#4a90e2">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FashionCloset</title>
+
+  <!-- Fuentes -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Botones fijos -->
+  <button id="menuToggle" class="hamburguesa">☰</button>
+  <span id="textoMenu" class="texto-menu">Menú</span>
+
+  <!-- Sidebar -->
+  <div class="sidebar oculto" id="sidebar">
+    <ul>
+      <li><a href="#" id="inicioBtn">INICIO</a></li>
+      <li>
+        <a href="#" id="catalogoToggle">CATÁLOGO ▾</a>
+        <ul id="catalogoSubmenu" class="submenu hidden"></ul>
+      </li>
+      <li><a href="#" id="editarCatalogoBtn">EDITAR CATÁLOGO</a></li>
+    </ul>
+  </div>
+
+  <!-- Overlay -->
+  <div id="overlay" class="overlay oculto"></div>
+
+  <!-- Contenido principal -->
+  <div class="main hidden" id="mainContent">
+    <h2 id="catalogTitle">Catálogo</h2>
+
+    <!-- 🔹 Botón de ordenar -->
+    <div class="ordenar-container">
+      <button id="ordenarBtn">Ordenar ▼</button>
+      <div id="ordenarDropdown" class="dropdown">
+        <div class="opcion" data-sort="color">Por color</div>
+        <div class="opcion" data-sort="marca">Por marca</div>
+        <div class="opcion" data-sort="reciente">Por recién añadido</div>
+      </div>
+    </div>
+    
+    <div class="filtrar-container">
+      <button id="filtrarBtn">Filtrar ▾</button>
+      <div id="filtrarDropdown" class="dropdown">
+        
+        <!-- FILTRO POR COLOR -->
+        <div class="subtitulo">Por color</div>
+          <select id="colorSelect">
+            <option value="todos">Todos</option>
+            <option value="rojo">Rojo</option>
+            <option value="naranja">Naranja</option>
+            <option value="amarillo">Amarillo</option>
+            <option value="verde">Verde</option>
+            <option value="azul">Azul</option>
+            <option value="morado">Morado</option>
+            <option value="rosa">Rosa</option>
+          </select>
+
+        <!-- FILTRO POR MARCA -->
+        <div class="subtitulo">Por marca</div>
+        <select id="marcaSelect">
+          <option value="todas">Todas</option>
+          <!-- aquí se llenarán las marcas dinámicamente si lo haces con JS -->
+        </select>
+      </div>
+    </div>
+
+
+    <!-- 🔹 Aquí van las prendas -->
+    <div id="catalog"></div>
+    <div id="notification" class="hidden">✅ Prenda añadida</div>
+  </div>
+
+  <!-- Pantalla inicio -->
+  <div id="homeScreen"></div>
+
+  <!-- Input oculto para subir imágenes -->
+  <input type="file" id="imageInput" accept="image/*" class="hidden" multiple>
+
+  <!-- Modal editar catálogo moderno -->
+  <div id="modalCatalogo" class="modal oculto">
+    <div class="modal-content">
+      <h3>Editar catálogo</h3>
+      <form id="catalogoForm" class="categorias-form">
+        <div class="categorias-grid">
+          <label class="categoria-card">
+            <input type="checkbox" value="gorras">
+            <span>Gorras</span>
+          </label>
+          <label class="categoria-card">
+            <input type="checkbox" value="chaquetas">
+            <span>Chaquetas</span>
+          </label>
+          <label class="categoria-card">
+            <input type="checkbox" value="sudaderas">
+            <span>Sudaderas</span>
+          </label>
+          <label class="categoria-card">
+            <input type="checkbox" value="camisas">
+            <span>Camisas</span>
+          </label>
+          <label class="categoria-card">
+            <input type="checkbox" value="polos">
+            <span>Polos</span>
+          </label>
+          <label class="categoria-card">
+            <input type="checkbox" value="camisetas">
+            <span>Camisetas</span>
+          </label>
+          <label class="categoria-card">
+            <input type="checkbox" value="tops">
+            <span>Tops</span>
+          </label>
+          <label class="categoria-card">
+            <input type="checkbox" value="vestidos">
+            <span>Vestidos</span>
+          </label>
+          <label class="categoria-card">
+            <input type="checkbox" value="pantaloneslargos">
+            <span>Pantalones largos</span>
+          </label>
+          <label class="categoria-card">
+            <input type="checkbox" value="pantalonescortos">
+            <span>Pantalones cortos</span>
+          </label>
+          <label class="categoria-card">
+            <input type="checkbox" value="faldas">
+            <span>Faldas</span>
+          </label>
+          <label class="categoria-card">
+            <input type="checkbox" value="zapatillas">
+            <span>Zapatillas</span>
+          </label>
+        </div>
+        <div class="modal-buttons">
+          <button type="submit" class="guardar-btn">Guardar</button>
+          <button type="button" id="cerrarModal" class="cerrar-btn">Cerrar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Botón de perfil -->
+  <button class="perfil" id="perfilBtn">👤</button>
+
+  <!-- Menú desplegable perfil -->
+  <div id="perfilMenu" class="perfil-menu oculto">
+    <ul>
+      <li><a href="#" id="ajustesBtn">Ajustes</a></li>
+      <li><a href="#" id="elegirFondoBtn">Elegir fondo</a></li>
+      <li><a href="#" id="cerrarSesionBtn">Cerrar sesión</a></li>
+    </ul>
+  </div>
+
+  <!-- Carrusel de selección de fondo -->
+  <div id="fondoCarrusel" class="fondo-carrusel oculto">
+    <div class="carrusel-contenido" id="carruselContenido">
+      <!-- Las imágenes se insertan con JS -->
+    </div>
+  </div>
+
+  <!-- Div donde ira el boton de seleccionar marca de cada prenda-->
+   <div id="dropdown-root" ></div>
+
+  <!-- Script -->
+  <script src="script.js"></script>
+
+  <script>
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("/app/service-worker.js")
+      .then(() => console.log("Service Worker registrado"))
+      .catch(err => console.error("Error registrando SW", err));
+  }
+  </script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+# Node
+node_modules/
+package-lock.json
+
+# Capacitor build outputs
+android/
+ios/
+build/
+dist/
+
+# IDEs
+.idea/
+.vscode/
+
+# Sistema
+.DS_Store
+Thumbs.db
