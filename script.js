@@ -569,7 +569,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   cerrarModalBtn.addEventListener("click", () => {
     modal.classList.add("oculto");
-    overlay.classList.remove("activo");
+    overlay.classList.add("activo");
   });
 
   catalogoForm.addEventListener("submit", (e) => {
@@ -668,6 +668,7 @@ const coloresEstandar = ["rojo","naranja","amarillo","verde","azul","morado","ro
 // Abrir/cerrar desplegable
 filtrarBtn.addEventListener("click", (e) => {
   filtrarDropdown.classList.toggle("show");
+  ordenarDropdown.classList.remove("show");//Ocultar el dropdown de ordenar
   e.stopPropagation();
 });
 
@@ -737,6 +738,7 @@ function crearOpcionesFiltro() {
 // Abrir/cerrar desplegable
 ordenarBtn.addEventListener("click", () => {
   ordenarDropdown.classList.toggle("show");
+  filtrarDropdown.classList.remove("show"); //Ocultar el dropdown de filtrar
 });
 
 // Detectar opción seleccionada
