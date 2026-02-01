@@ -155,6 +155,30 @@ document.addEventListener('DOMContentLoaded', () => {
       const img = document.createElement("img");
       img.src = prenda.url;
 
+      // --- LÓGICA DE ZOOM ---
+      img.onclick = (e) => {
+        e.stopPropagation(); // Evita conflictos de clics
+        const overlayZoom = document.getElementById("overlayZoom");
+        
+        // Si ya tiene zoom, lo quitamos. Si no, lo ponemos.
+        if (prendaDiv.classList.contains("zoom")) {
+          prendaDiv.classList.remove("zoom");
+          overlayZoom.classList.remove("activo");
+        } else {
+          // Primero quitamos el zoom de cualquier otra prenda por si acaso
+          document.querySelectorAll('.prenda.zoom').forEach(p => p.classList.remove('zoom'));
+          
+          prendaDiv.classList.add("zoom");
+          overlayZoom.classList.add("activo");
+        }
+      };
+
+      // Cerrar zoom al hacer clic en el fondo oscuro
+      document.getElementById("overlayZoom").onclick = () => {
+        document.querySelectorAll('.prenda.zoom').forEach(p => p.classList.remove('zoom'));
+        document.getElementById("overlayZoom").classList.remove("activo");
+      };
+
       const eliminarBtn = document.createElement("button");
       eliminarBtn.className = "eliminarBtn";
       eliminarBtn.textContent = "✕";
