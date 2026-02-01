@@ -879,6 +879,10 @@ ul a {
   transition: all 0.3s ease;
 }
 
+.prenda.zoom img{
+  height: 260px;
+}
+
 /* Oscurecer el fondo cuando hay zoom */
 .overlay-zoom {
   position: fixed;

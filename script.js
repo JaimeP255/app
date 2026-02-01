@@ -161,10 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const overlayZoom = document.getElementById("overlayZoom");
         
         // Si ya tiene zoom, lo quitamos. Si no, lo ponemos.
-        if (prendaDiv.classList.contains("zoom")) {
-          prendaDiv.classList.remove("zoom");
-          overlayZoom.classList.remove("activo");
-        } else {
+        if (!prendaDiv.classList.contains("zoom")) {
           // Primero quitamos el zoom de cualquier otra prenda por si acaso
           document.querySelectorAll('.prenda.zoom').forEach(p => p.classList.remove('zoom'));
           
