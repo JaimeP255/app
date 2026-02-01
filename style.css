@@ -259,7 +259,7 @@ ul a {
   background: #ffffff;
   border-radius: 20px;
   padding: 20px;
-  z-index: 2000;
+  z-index: 3000;
   display: none;
   flex-direction: column;
   box-shadow: 0 16px 40px rgba(0,0,0,0.25);
@@ -866,3 +866,42 @@ ul a {
   color: #987d7d;
 }
 
+/* Clase que se aplica a la prenda cuando se maximiza */
+.prenda.zoom {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1.8); /* Se hace casi al doble */
+  z-index: 3000;
+  width: 200px; /* Tamaño base mayor */
+  height: 300px;
+  box-shadow: 0 0 100px rgba(0,0,0,0.5);
+  transition: all 0.3s ease;
+}
+
+.prenda.zoom img{
+  height: 260px;
+}
+
+/* Oscurecer el fondo cuando hay zoom */
+.overlay-zoom {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(5px);
+  z-index: 2500;
+  display: none; /* Oculto por defecto */
+}
+
+.overlay-zoom.activo {
+  display: block;
+}
+
+/* Ajustes para que los controles se vean bien en grande */
+.prenda.zoom .colorSelector, 
+.prenda.zoom .eliminarBtn {
+  transform: scale(0.7); /* Reducimos los botones un poco para que no tapen la foto */
+}
