@@ -1,4 +1,42 @@
 document.addEventListener('DOMContentLoaded', () => {
+
+  const dbName = "FashionClosetDB";
+
+  // Función para conectar a la base de datos
+  async function openDB() {
+    return new Promise((resolve, reject) => {
+      const request = indexedDB.open(dbName, 2);
+      request.onupgradeneeded = (e) => {
+        const db = e.target.result;
+        // Creamos una "tabla" para cada categoría
+        const cats = ["gorras","chaquetas","sudaderas","camisas","polos","camisetas","tops","vestidos","pantaloneslargos","pantalonescortos","faldas","zapatillas"];
+        cats.forEach(c => { 
+          if (!db.objectStoreNames.contains(c)) db.createObjectStore(c, { keyPath: "id", autoIncrement: true }); 
+        });
+      };
+      request.onsuccess = () => resolve(request.result);
+      request.onerror = () => reject(request.error);
+    });
+  }
+
+  // Función para LEER prendas
+  async function getPrendas(cat) {
+    const db = await openDB();
+    return new Promise(res => {
+      const tx = db.transaction(cat, "readonly");
+      const req = tx.objectStore(cat).getAll();
+      req.onsuccess = () => res(req.result);
+    });
+  }
+
+  // Función para GUARDAR prendas
+  async function savePrenda(cat, prenda) {
+    const db = await openDB();
+    const tx = db.transaction(cat, "readwrite");
+    tx.objectStore(cat).add(prenda);
+    return tx.complete;
+  }
+
   let currentCategory = "gorros";
 
   const sidebar = document.getElementById("sidebar");
@@ -68,12 +106,12 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
-  function displayCatalog(category) {
+  async function displayCatalog(category) {
     currentCategory = category;
     const catalog = document.getElementById("catalog");
     catalog.innerHTML = "";
 
-    const prendas = JSON.parse(localStorage.getItem(category)) || [];
+    const prendas = await getPrendas(category);
 
     prendas.forEach((prenda, index) => {
       const prendaDiv = document.createElement("div");
@@ -96,9 +134,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const eliminarBtn = document.createElement("button");
       eliminarBtn.className = "eliminarBtn";
       eliminarBtn.textContent = "✕";
-      eliminarBtn.onclick = () => {
-        prendas.splice(index, 1);
-        localStorage.setItem(category, JSON.stringify(prendas));
+      eliminarBtn.onclick = async () => {
+        await deletePrenda(category, prenda.id); // Borra de IndexedDB
         displayCatalog(category);
       };
 
@@ -136,13 +173,15 @@ document.addEventListener('DOMContentLoaded', () => {
           const swatch = document.createElement("div");
           swatch.className = "swatch";
           swatch.style.backgroundColor = color;
-          swatch.onclick = () => {
+          swatch.onclick = async () => { // 1. Añadimos async aquí
             prenda.color = color;
             colorSelector.style.backgroundColor = color;
             prendaDiv.style.boxShadow = `0 0 0 4px ${color}`;
-            actualizarColor(prendaDiv, color);   // 👈 añadir
+            actualizarColor(prendaDiv, color);
             colorModal.style.display = "none";
-            localStorage.setItem(category, JSON.stringify(prendas));
+          
+            // 2. Cambiamos la línea de abajo por esta:
+            await updatePrenda(category, prenda); 
           };
 
           fila.appendChild(swatch);
@@ -360,14 +399,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const item = document.createElement("div");
             item.className = "marcaItem";
             item.textContent = m;
-            item.addEventListener("click", () => {
+            item.addEventListener("click", async () => {
               prenda.marca = m;
               prendaDiv.dataset.marca = m;
               trigger.textContent = m;
               marcaInput.classList.add("hidden");
               root.innerHTML = ""; // cerrar menú
               marcaInput.classList.add("hidden"); // 👈 cerrar input actual
-              localStorage.setItem(category, JSON.stringify(prendas));
+              await updatePrenda(currentCategory, prenda);
               crearOpcionesFiltro();
             });
             dropdown.appendChild(item);
@@ -441,38 +480,31 @@ document.addEventListener('DOMContentLoaded', () => {
     crearOpcionesFiltro();
   }
 
-  fileInput.addEventListener("change", (e) => {
+  fileInput.addEventListener("change", async (e) => { // Añadimos async aquí
   const files = Array.from(e.target.files);
   if (files.length === 0) return;
 
-  const prendas = JSON.parse(localStorage.getItem(currentCategory)) || [];
-
-  let loaded = 0;
-
-  files.forEach((file) => {
-    
-    fileToJPEG(file,(jpegData) => {
-      prendas.push({
-        url: jpegData,
-        color: null,
-        marca: "",
-        timestamp: Date.now()
+  for (const file of files) { // Usamos for...of para manejar la base de datos
+    await new Promise(resolve => {
+      fileToJPEG(file, async (jpegData) => {
+        // Guardamos directamente en IndexedDB en lugar de localStorage
+        await savePrenda(currentCategory, {
+          url: jpegData,
+          color: null,
+          marca: "",
+          timestamp: Date.now()
+        });
+        resolve();
       });
-
-      loaded++;
-      if (loaded === files.length) {
-        localStorage.setItem(currentCategory, JSON.stringify(prendas));
-        displayCatalog(currentCategory);
-
-        notification.classList.remove("hidden");
-        setTimeout(() => notification.classList.add("hidden"), 2000);
-      }
     });
-    reader.readAsDataURL(file);
-  });
+  }
 
-  // Resetear input
-  e.target.value = "";
+  // Refrescamos el catálogo y mostramos notificación
+  displayCatalog(currentCategory);
+  notification.classList.remove("hidden");
+  setTimeout(() => notification.classList.add("hidden"), 2000);
+
+  e.target.value = ""; // Reseteamos el input
 });
 
 

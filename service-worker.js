@@ -1,4 +1,4 @@
-const CACHE_NAME = "looke-v1";
+const CACHE_NAME = "looke-v2";
 const urlsToCache = [
   "/app/",
   "/app/index.html",
