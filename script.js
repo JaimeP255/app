@@ -37,6 +37,30 @@ document.addEventListener('DOMContentLoaded', () => {
     return tx.complete;
   }
 
+  // Función para ACTUALIZAR prendas existentes (Color, Marca, etc.)
+  async function updatePrenda(cat, prenda) {
+    const db = await openDB();
+    const tx = db.transaction(cat, "readwrite");
+    const store = tx.objectStore(cat);
+    
+    // El método .put() busca el objeto por su ID y lo actualiza
+    store.put(prenda); 
+    
+    return tx.complete;
+  }
+
+  // Función para ELIMINAR prendas
+  async function deletePrenda(cat, id) {
+    const db = await openDB();
+    const tx = db.transaction(cat, "readwrite");
+    const store = tx.objectStore(cat);
+    
+    // Borra la prenda usando su ID único
+    store.delete(id);
+    
+    return tx.complete;
+  }
+
   let currentCategory = "gorros";
 
   const sidebar = document.getElementById("sidebar");
