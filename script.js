@@ -155,25 +155,61 @@ document.addEventListener('DOMContentLoaded', () => {
       const img = document.createElement("img");
       img.src = prenda.url;
 
-      // --- LÓGICA DE ZOOM ---
+     // --- LÓGICA DE ZOOM CON "VUELO" ---
       img.onclick = (e) => {
-        e.stopPropagation(); // Evita conflictos de clics
+        e.stopPropagation();
         const overlayZoom = document.getElementById("overlayZoom");
-        
-        // Si ya tiene zoom, lo quitamos. Si no, lo ponemos.
+
         if (!prendaDiv.classList.contains("zoom")) {
-          // Primero quitamos el zoom de cualquier otra prenda por si acaso
-          document.querySelectorAll('.prenda.zoom').forEach(p => p.classList.remove('zoom'));
+          // 1. Limpiamos otros zooms por seguridad
+          document.querySelectorAll('.prenda.zoom').forEach(p => {
+             p.classList.remove('zoom');
+             p.style.removeProperty('--muevex'); // Limpiamos variables viejas
+             p.style.removeProperty('--mueveY');
+          });
+
+          // 2. CÁLCULOS MATEMÁTICOS
+          // ¿Dónde está la prenda ahora?
+          const rect = prendaDiv.getBoundingClientRect();
+          // ¿Dónde está el centro de la prenda?
+          const prendaCentroX = rect.left + rect.width / 2;
+          const prendaCentroY = rect.top + rect.height / 2;
           
+          // ¿Dónde está el centro de la pantalla?
+          const pantallaCentroX = window.innerWidth / 2;
+          const pantallaCentroY = window.innerHeight / 2;
+          
+          // ¿Cuánto tiene que moverse para llegar al centro?
+          const distanciaX = pantallaCentroX - prendaCentroX;
+          const distanciaY = pantallaCentroY - prendaCentroY;
+
+          // 3. Inyectamos esos números en el estilo de la prenda
+          prendaDiv.style.setProperty('--muevex', `${distanciaX}px`);
+          prendaDiv.style.setProperty('--mueveY', `${distanciaY}px`);
+
+          // 4. Activamos la clase (el CSS hará la magia usando las variables)
           prendaDiv.classList.add("zoom");
           overlayZoom.classList.add("activo");
+          
+          // Bloquear el scroll de la página para que no se mueva el fondo
+          document.body.style.overflow = 'hidden'; 
+
         }
       };
 
-      // Cerrar zoom al hacer clic en el fondo oscuro
-      document.getElementById("overlayZoom").onclick = () => {
-        document.querySelectorAll('.prenda.zoom').forEach(p => p.classList.remove('zoom'));
-        document.getElementById("overlayZoom").classList.remove("activo");
+      // --- CERRAR ZOOM ---
+      const overlayZoom = document.getElementById("overlayZoom");
+      overlayZoom.onclick = () => {
+        document.querySelectorAll('.prenda.zoom').forEach(p => {
+            p.classList.remove('zoom');
+            // Esperamos a que acabe la transición para limpiar estilos (opcional, pero limpio)
+            setTimeout(() => {
+                p.style.removeProperty('--muevex');
+                p.style.removeProperty('--mueveY');
+            }, 400); 
+        });
+        overlayZoom.classList.remove("activo");
+        document.body.style.overflow = ''; // Devolver el scroll a la página
       };
 
       const eliminarBtn = document.createElement("button");

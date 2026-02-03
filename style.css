@@ -868,15 +868,11 @@ ul a {
 
 /* Clase que se aplica a la prenda cuando se maximiza */
 .prenda.zoom {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(1.8); /* Se hace casi al doble */
+  position: relative;
   z-index: 3000;
-  width: 200px; /* Tamaño base mayor */
-  height: 300px;
-  box-shadow: 0 0 100px rgba(0,0,0,0.5);
-  transition: all 0.3s ease;
+  transform: translate(var(--muevex), var(--mueveY)) scale(1.8);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  cursor: default;
 }
 
 .prenda.zoom img{
