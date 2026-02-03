@@ -92,6 +92,175 @@ document.addEventListener('DOMContentLoaded', () => {
       "gorras", "sudaderas", "camisetas", "pantalones cortos", "zapatillas"
     ];
 
+  const marcasDisponibles = [
+           "Zara",
+      "Mango",
+      "Bershka",
+      "Massimo Dutti",
+      "Stradivarius",
+      "Pull&Bear",
+      "Oysho",
+      "Desigual",
+      "Adolfo Domínguez",
+      "Bimba y Lola",
+      "El Corte Inglés",
+      "H&M",
+      "Primark",
+      "Shein",
+      "Nike",
+      "Adidas",
+      "Reebok",
+      "Puma",
+      "Calvin Klein",
+      "Tommy Hilfiger",
+      "Levi's",
+      "Pepe Jeans",
+      "Diesel",
+      "Levi's",
+      "Lacoste",
+      "Ralph Lauren",
+      "Carhartt",
+      "Vans",
+      "Converse",
+      "New Balance",
+      "Asics",
+      "Under Armour",
+      "Superdry",
+      "Abercrombie & Fitch",
+      "Hollister",
+      "Uniqlo",
+      "Jack & Jones",
+      "Benetton",
+      "C&A",
+      "Kiabi",
+      "Sfera",
+      "Mayoral",
+      "Cortefiel",
+      "Women'secret",
+      "Springfield",
+      "Tendam",
+      "AWWG",
+      "Sociedad Textil Lonia",
+      "Tous",
+      "Lois",
+      "Tenth",
+      "Polinesia",
+      "Decathlon",
+      "Calzedonia",
+      "Intimissimi",
+      "Tezenis",
+      "Hunkemöller",
+      "Oysho",
+      "Calvin Klein Underwear",
+      "Victoria's Secret",
+      "Agent Provocateur",
+      "Sloggi",
+      "Triumph",
+      "Playtex",
+      "Chantelle",
+      "Simone Pérèle",
+      "Wacoal",
+      "Freya",
+      "Panache",
+      "Curvy Kate",
+      "Bravissimo",
+      "Boux Avenue",
+      "Marks & Spencer",
+      "Next",
+      "River Island",
+      "Topshop",
+      "Topman",
+      "Monsoon",
+      "Accessorize",
+      "Clarks",
+      "Dr. Martens",
+      "Timberland",
+      "UGG",
+      "Hunter",
+      "Skechers",
+      "Crocs",
+      "Geox",
+      "Pikolinos",
+      "Camper",
+      "El Naturalista",
+      "Lottusse",
+      "Pretty Ballerinas",
+      "Bimba y Lola",
+      "Castañer",
+      "Manolo Blahnik",
+      "Loewe",
+      "Balenciaga",
+      "Chanel",
+      "Louis Vuitton",
+      "Gucci",
+      "Prada",
+      "Dior",
+      "Fendi",
+      "Burberry",
+      "Saint Laurent",
+      "Valentino",
+      "Givenchy",
+      "Celine",
+      "Chloé",
+      "Isabel Marant",
+      "Stella McCartney",
+      "Alexander McQueen",
+      "Victoria Beckham",
+      "Simone Rocha",
+      "JW Anderson",
+      "Acne Studios",
+      "Sacai",
+      "Loewe",
+      "Lemaire",
+      "Haider Ackermann",
+      "Dries Van Noten",
+      "Ann Demeulemeester",
+      "Haider Ackermann",
+      "Junya Watanabe",
+      "Comme des Garçons",
+      "Issey Miyake",
+      "Yohji Yamamoto",
+      "Kenzo",
+      "Sacai",
+      "Undercover",
+      "Maison Margiela",
+      "Rick Owens",
+      "Vetements",
+      "Off-White",
+      "Balenciaga",
+      "Fendi",
+      "Prada",
+      "Dior",
+      "Chanel",
+      "Louis Vuitton",
+      "Gucci",
+      "Versace",
+      "Bvlgari",
+      "Cartier",
+      "Piaget",
+      "Chopard",
+      "Tiffany & Co.",
+      "Van Cleef & Arpels",
+      "Harry Winston",
+      "Graff",
+      "De Beers",
+      "Mikimoto",
+      "David Yurman",
+      "Boucheron",
+      "Chaumet",
+      "Piaget",
+      "Chopard",
+      "Tiffany & Co.",
+      "Van Cleef & Arpels",
+      "Harry Winston",
+      "Graff",
+      "De Beers",
+      "Mikimoto",
+      "David Yurman",
+      "Boucheron",
+      "Chaumet"
+          ];
+
   //Cierra el sidebar
   function closeSidebar(){
     sidebar.classList.add("oculto");
@@ -293,175 +462,6 @@ document.addEventListener('DOMContentLoaded', () => {
       marcaInput.type = "text";
       marcaInput.className = "marcaInput hidden";
       marcaInput.placeholder = "Escribe para buscar marca";
-
-      const marcasDisponibles = [
-           "Zara",
-      "Mango",
-      "Bershka",
-      "Massimo Dutti",
-      "Stradivarius",
-      "Pull&Bear",
-      "Oysho",
-      "Desigual",
-      "Adolfo Domínguez",
-      "Bimba y Lola",
-      "El Corte Inglés",
-      "H&M",
-      "Primark",
-      "Shein",
-      "Nike",
-      "Adidas",
-      "Reebok",
-      "Puma",
-      "Calvin Klein",
-      "Tommy Hilfiger",
-      "Levi's",
-      "Pepe Jeans",
-      "Diesel",
-      "Levi's",
-      "Lacoste",
-      "Ralph Lauren",
-      "Carhartt",
-      "Vans",
-      "Converse",
-      "New Balance",
-      "Asics",
-      "Under Armour",
-      "Superdry",
-      "Abercrombie & Fitch",
-      "Hollister",
-      "Uniqlo",
-      "Jack & Jones",
-      "Benetton",
-      "C&A",
-      "Kiabi",
-      "Sfera",
-      "Mayoral",
-      "Cortefiel",
-      "Women'secret",
-      "Springfield",
-      "Tendam",
-      "AWWG",
-      "Sociedad Textil Lonia",
-      "Tous",
-      "Lois",
-      "Tenth",
-      "Polinesia",
-      "Decathlon",
-      "Calzedonia",
-      "Intimissimi",
-      "Tezenis",
-      "Hunkemöller",
-      "Oysho",
-      "Calvin Klein Underwear",
-      "Victoria's Secret",
-      "Agent Provocateur",
-      "Sloggi",
-      "Triumph",
-      "Playtex",
-      "Chantelle",
-      "Simone Pérèle",
-      "Wacoal",
-      "Freya",
-      "Panache",
-      "Curvy Kate",
-      "Bravissimo",
-      "Boux Avenue",
-      "Marks & Spencer",
-      "Next",
-      "River Island",
-      "Topshop",
-      "Topman",
-      "Monsoon",
-      "Accessorize",
-      "Clarks",
-      "Dr. Martens",
-      "Timberland",
-      "UGG",
-      "Hunter",
-      "Skechers",
-      "Crocs",
-      "Geox",
-      "Pikolinos",
-      "Camper",
-      "El Naturalista",
-      "Lottusse",
-      "Pretty Ballerinas",
-      "Bimba y Lola",
-      "Castañer",
-      "Manolo Blahnik",
-      "Loewe",
-      "Balenciaga",
-      "Chanel",
-      "Louis Vuitton",
-      "Gucci",
-      "Prada",
-      "Dior",
-      "Fendi",
-      "Burberry",
-      "Saint Laurent",
-      "Valentino",
-      "Givenchy",
-      "Celine",
-      "Chloé",
-      "Isabel Marant",
-      "Stella McCartney",
-      "Alexander McQueen",
-      "Victoria Beckham",
-      "Simone Rocha",
-      "JW Anderson",
-      "Acne Studios",
-      "Sacai",
-      "Loewe",
-      "Lemaire",
-      "Haider Ackermann",
-      "Dries Van Noten",
-      "Ann Demeulemeester",
-      "Haider Ackermann",
-      "Junya Watanabe",
-      "Comme des Garçons",
-      "Issey Miyake",
-      "Yohji Yamamoto",
-      "Kenzo",
-      "Sacai",
-      "Undercover",
-      "Maison Margiela",
-      "Rick Owens",
-      "Vetements",
-      "Off-White",
-      "Balenciaga",
-      "Fendi",
-      "Prada",
-      "Dior",
-      "Chanel",
-      "Louis Vuitton",
-      "Gucci",
-      "Versace",
-      "Bvlgari",
-      "Cartier",
-      "Piaget",
-      "Chopard",
-      "Tiffany & Co.",
-      "Van Cleef & Arpels",
-      "Harry Winston",
-      "Graff",
-      "De Beers",
-      "Mikimoto",
-      "David Yurman",
-      "Boucheron",
-      "Chaumet",
-      "Piaget",
-      "Chopard",
-      "Tiffany & Co.",
-      "Van Cleef & Arpels",
-      "Harry Winston",
-      "Graff",
-      "De Beers",
-      "Mikimoto",
-      "David Yurman",
-      "Boucheron",
-      "Chaumet"
-          ];
 
       function abrirDropdown(trigger, prenda, marcaInput) {
         const root = document.getElementById("dropdown-root");
@@ -794,10 +794,11 @@ document.addEventListener("click", () => {
 filtrarDropdown.addEventListener("click", e => e.stopPropagation());
 
 // Crear opciones de filtro dinámicamente
-function crearOpcionesFiltro() {
+async function crearOpcionesFiltro() {
+  const filtrarDropdown = document.getElementById("filtrarDropdown");
   filtrarDropdown.innerHTML = "";
 
-  // Subtitulo y select de color
+  // 1. SECCIÓN DE COLOR (Esto no cambia)
   const subtituloColor = document.createElement("div");
   subtituloColor.className = "subtitulo";
   subtituloColor.textContent = "Filtrar por color";
@@ -806,6 +807,7 @@ function crearOpcionesFiltro() {
   const selectColor = document.createElement("select");
   selectColor.innerHTML = `<option value="">Todos</option>`;
 
+  const coloresEstandar = ["rojo","naranja","amarillo","verde","azul","morado","rosa"];
   coloresEstandar.forEach(color => {
     const option = document.createElement("option");
     option.value = color;
@@ -817,11 +819,10 @@ function crearOpcionesFiltro() {
     filtrarPrendas({ color: selectColor.value });
     filtrarDropdown.classList.remove("show");
   });
-
   filtrarDropdown.appendChild(selectColor);
 
 
-  // Subtitulo y select de marcas
+  // 2. SECCIÓN DE MARCA
   const subtituloMarca = document.createElement("div");
   subtituloMarca.className = "subtitulo";
   subtituloMarca.textContent = "Filtrar por marca";
@@ -830,15 +831,24 @@ function crearOpcionesFiltro() {
   const selectMarca = document.createElement("select");
   selectMarca.innerHTML = `<option value="">Todas</option>`;
 
-  // Obtener todas las marcas del catálogo actual
-  const prendas = JSON.parse(localStorage.getItem(currentCategory)) || [];
-  const marcasUnicas = [...new Set(prendas.map(p => p.marca).filter(Boolean))];
-  marcasUnicas.forEach(m => {
-    const option = document.createElement("option");
-    option.value = m;
-    option.textContent = m;
-    selectMarca.appendChild(option);
-  });
+  // A) Pedimos las prendas a IndexedDB (esperamos con await)
+  const prendas = await getPrendas(currentCategory);
+
+  // B) Sacamos las marcas únicas que YA EXISTEN en tus prendas
+  const marcasUsadas = [...new Set(prendas.map(p => p.marca).filter(Boolean))].sort();
+
+  // C) Si tienes marcas, las mostramos. Si no, podrías mostrar "Sin marcas"
+  if (marcasUsadas.length > 0) {
+      marcasUsadas.forEach(m => {
+        const option = document.createElement("option");
+        option.value = m;
+        option.textContent = m;
+        selectMarca.appendChild(option);
+      });
+  } else {
+      // Opcional: Si no hay marcas usadas, podrías deshabilitarlo o dejarlo vacío
+      // selectMarca.disabled = true; 
+  }
 
   selectMarca.addEventListener("change", () => {
     filtrarPrendas({ marca: selectMarca.value });
