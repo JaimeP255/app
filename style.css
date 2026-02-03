@@ -876,7 +876,7 @@ ul a {
 }
 
 .prenda.zoom img{
-  height: 260px;
+  height: 190px;
 }
 
 /* Oscurecer el fondo cuando hay zoom */
@@ -900,4 +900,5 @@ ul a {
 .prenda.zoom .colorSelector, 
 .prenda.zoom .eliminarBtn {
   transform: scale(0.7); /* Reducimos los botones un poco para que no tapen la foto */
+
 }
