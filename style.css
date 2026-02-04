@@ -214,7 +214,7 @@ ul a {
   height: 28px;
   font-size: 16px;
   cursor: pointer;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
@@ -900,5 +900,50 @@ ul a {
 .prenda.zoom .colorSelector, 
 .prenda.zoom .eliminarBtn {
   transform: scale(0.7); /* Reducimos los botones un poco para que no tapen la foto */
+}
 
+.prenda img:active {
+  transform: scale(0.96);
+  transition: transform 0.2s ease;
+}
+
+/* Botón de borrar selección */
+.btn-borrar {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #ff5252, #d32f2f); /* Rojo degradado */
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  margin-left: 8px;
+  transition: transform 0.2s ease, opacity 0.3s ease;
+}
+
+.btn-borrar:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #ff1744, #b71c1c);
+}
+
+/* Estilo visual para saber qué prendas están seleccionadas */
+.prenda.seleccionada {
+  border: 3px solid #ff5252; /* Borde rojo */
+  transform: scale(0.95);    /* Un poco más pequeña */
+  opacity: 0.8;
+}
+
+/* Un pequeño icono check encima de la prenda seleccionada (Opcional pero queda pro) */
+.prenda.seleccionada::after {
+  content: "✓";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 40px;
+  color: #ff5252;
+  font-weight: bold;
+  pointer-events: none;
+  z-index: 100;
 }
