@@ -71,6 +71,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const fileInput = document.getElementById("imageInput");
   const catalogoSubmenu = document.getElementById("catalogoSubmenu");
   const notification = document.getElementById("notification");
+  let modoSeleccion = false;
+  let prendasSeleccionadas = [];
 
   const categoriasDisponibles = {
     gorras: "GORRAS",
@@ -270,6 +272,52 @@ document.addEventListener('DOMContentLoaded', () => {
     textoMenu.classList.remove("visible"); // Ocultar texto
   }
 
+  // Activa el modo selección y muestra el botón
+  function activarModoSeleccion() {
+    modoSeleccion = true;
+    document.getElementById("btnBorrarSeleccion").classList.remove("hidden");
+    // Opcional: Ocultar otros botones para limpiar pantalla
+    document.querySelector(".ordenar-container").classList.add("hidden"); 
+    document.querySelector(".filtrar-container").classList.add("hidden");
+  }
+
+  // Desactiva todo
+  function desactivarModoSeleccion() {
+    modoSeleccion = false;
+    prendasSeleccionadas = []; // Vaciar array
+    document.getElementById("btnBorrarSeleccion").classList.add("hidden");
+    document.getElementById("contadorSeleccion").textContent = "0";
+    
+    // Volver a mostrar los otros botones
+    document.querySelector(".ordenar-container").classList.remove("hidden"); 
+    document.querySelector(".filtrar-container").classList.remove("hidden");
+
+    // Quitar estilo visual de todas las prendas
+    document.querySelectorAll(".prenda.seleccionada").forEach(p => p.classList.remove("seleccionada"));
+  }
+
+  // Añade o quita una prenda del array
+  function toggleSeleccion(id, divElement) {
+    const index = prendasSeleccionadas.indexOf(id);
+    
+    if (index === -1) {
+      // Si no estaba, la metemos
+      prendasSeleccionadas.push(id);
+      divElement.classList.add("seleccionada");
+    } else {
+      // Si ya estaba, la sacamos
+      prendasSeleccionadas.splice(index, 1);
+      divElement.classList.remove("seleccionada");
+    }
+
+    // Actualizar el número del botón
+    document.getElementById("contadorSeleccion").textContent = prendasSeleccionadas.length;
+    
+    // Si quitamos todas las prendas, ¿queremos salir del modo selección?
+    if (prendasSeleccionadas.length === 0) {
+        desactivarModoSeleccion();
+    }
+  }
 
   //Funcion que cambia los archivos a .jpeg
   function fileToJPEG(file, callback) {
@@ -324,46 +372,82 @@ document.addEventListener('DOMContentLoaded', () => {
       const img = document.createElement("img");
       img.src = prenda.url;
 
-     // --- LÓGICA DE ZOOM CON "VUELO" ---
+      // Variables para controlar el tiempo
+      // --- VARIABLES DE TOQUE ---
+      let pressTimer;
+      let isLongPress = false;
+
+      // 1. FUNCIÓN LONG PRESS (Ahora activa el modo selección)
+      const startPress = () => {
+        isLongPress = false;
+        if (!modoSeleccion) {
+          pressTimer = setTimeout(() => {
+            isLongPress = true;
+            if (navigator.vibrate) navigator.vibrate(50);
+            
+            // --- AQUÍ EMPIEZA EL CAMBIO ---
+            activarModoSeleccion();     // Encendemos el modo
+            toggleSeleccion(prenda.id, prendaDiv); // Seleccionamos ESTA prenda
+            // ------------------------------
+            
+          }, 600);
+        }
+      };
+
+      const cancelPress = () => {
+        clearTimeout(pressTimer);
+      };
+
+      // Eventos de toque
+      img.addEventListener("touchstart", startPress, {passive: true});
+      img.addEventListener("touchend", cancelPress);
+      img.addEventListener("mousedown", startPress);
+      img.addEventListener("mouseup", cancelPress);
+      img.addEventListener("mouseleave", cancelPress);
+
+      // 2. CLICK EN LA IMAGEN
       img.onclick = (e) => {
         e.stopPropagation();
-        const overlayZoom = document.getElementById("overlayZoom");
 
-        if (!prendaDiv.classList.contains("zoom")) {
-          // 1. Limpiamos otros zooms por seguridad
-          document.querySelectorAll('.prenda.zoom').forEach(p => {
-             p.classList.remove('zoom');
-             p.style.removeProperty('--muevex'); // Limpiamos variables viejas
-             p.style.removeProperty('--mueveY');
-          });
-
-          // 2. CÁLCULOS MATEMÁTICOS
-          // ¿Dónde está la prenda ahora?
-          const rect = prendaDiv.getBoundingClientRect();
-          // ¿Dónde está el centro de la prenda?
-          const prendaCentroX = rect.left + rect.width / 2;
-          const prendaCentroY = rect.top + rect.height / 2;
-          
-          // ¿Dónde está el centro de la pantalla?
-          const pantallaCentroX = window.innerWidth / 2;
-          const pantallaCentroY = window.innerHeight / 2;
-          
-          // ¿Cuánto tiene que moverse para llegar al centro?
-          const distanciaX = pantallaCentroX - prendaCentroX;
-          const distanciaY = pantallaCentroY - prendaCentroY;
-
-          // 3. Inyectamos esos números en el estilo de la prenda
-          prendaDiv.style.setProperty('--muevex', `${distanciaX}px`);
-          prendaDiv.style.setProperty('--mueveY', `${distanciaY}px`);
-
-          // 4. Activamos la clase (el CSS hará la magia usando las variables)
-          prendaDiv.classList.add("zoom");
-          overlayZoom.classList.add("activo");
-          
-          // Bloquear el scroll de la página para que no se mueva el fondo
-          document.body.style.overflow = 'hidden'; 
-
+        // Si fue pulsación larga, no hacemos nada más (ya se activó la selección)
+        if (isLongPress) {
+          isLongPress = false;
+          return;
         }
+
+        // SI ESTAMOS EN MODO SELECCIÓN: Un clic normal selecciona/deselecciona
+        if (modoSeleccion) {
+          toggleSeleccion(prenda.id, prendaDiv);
+          return; // Importante: Paramos aquí para que NO haga zoom
+        }
+
+        // SI ES MODO NORMAL: Hacemos Zoom (Tu código de zoom actual)
+        // ... (Aquí va todo tu bloque de código del Zoom que ya tienes) ...
+         const overlayZoom = document.getElementById("overlayZoom");
+         if (!prendaDiv.classList.contains("zoom")) {
+             // ... limpiar otros zooms ...
+             document.querySelectorAll('.prenda.zoom').forEach(p => {
+                 p.classList.remove('zoom');
+                 p.style.removeProperty('--muevex');
+                 p.style.removeProperty('--mueveY');
+             });
+
+             // Cálculos matemáticos...
+             const rect = prendaDiv.getBoundingClientRect();
+             const prendaCentroX = rect.left + rect.width / 2;
+             const prendaCentroY = rect.top + rect.height / 2;
+             const pantallaCentroX = window.innerWidth / 2;
+             const pantallaCentroY = window.innerHeight / 2;
+             const distanciaX = pantallaCentroX - prendaCentroX;
+             const distanciaY = pantallaCentroY - prendaCentroY;
+
+             prendaDiv.style.setProperty('--muevex', `${distanciaX}px`);
+             prendaDiv.style.setProperty('--mueveY', `${distanciaY}px`);
+
+             prendaDiv.classList.add("zoom");
+             overlayZoom.classList.add("activo");
+             document.body.style.overflow = 'hidden'; 
+         }
       };
 
       // --- CERRAR ZOOM ---
@@ -540,7 +624,17 @@ document.addEventListener('DOMContentLoaded', () => {
       catalog.appendChild(prendaDiv);
     });
 
-
+    // --- CERRAR MODO SELECCIÓN AL TOCAR FUERA ---
+    // Usamos 'mousedown' o 'click' en el contenedor principal
+    main.addEventListener("click", (e) => {
+      // Si estamos en modo selección...
+      if (modoSeleccion) {
+        // Y lo que has tocado NO es una prenda, NI el botón de borrar, NI sus hijos...
+        if (!e.target.closest(".prenda") && !e.target.closest("#btnBorrarSeleccion")) {
+           desactivarModoSeleccion();
+        }
+      }
+    });
 
     const addBtn = document.createElement("div");
     addBtn.className = "addBtn";
@@ -647,6 +741,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   menuBtn.addEventListener("click", ()=>{ //Cuando se clicka la hamburguesa (El boton del menu)
     const isClosed = sidebar.classList.contains("oculto");
+    desactivarModoSeleccion() // Quitar el modo de borrar si esta activo
     sidebar.classList.toggle("oculto");
     overlay.classList.toggle("activo", isClosed);
     main.classList.toggle("desplazado", isClosed);
@@ -997,5 +1092,29 @@ function filtrarPrendas(filtro) {
     p.style.display = mostrar ? "block" : "none";
   });
 }
+
+// --- LÓGICA DE BORRADO MASIVO ---
+const btnBorrar = document.getElementById("btnBorrarSeleccion");
+
+btnBorrar.addEventListener("click", async (e) => {
+  e.stopPropagation(); // Que no propague al fondo
+
+  if (prendasSeleccionadas.length === 0) return;
+
+  // Confirmación de seguridad
+  const confirmacion = confirm(`¿Seguro que quieres borrar ${prendasSeleccionadas.length} prenda(s)?`);
+  
+  if (confirmacion) {
+    // 1. Borramos todas las prendas seleccionadas de la DB una a una
+    // Usamos Promise.all para esperar a que todas se borren
+    await Promise.all(prendasSeleccionadas.map(id => deletePrenda(currentCategory, id)));
+    
+    // 2. Salimos del modo selección
+    desactivarModoSeleccion();
+    
+    // 3. Recargamos el catálogo para ver los cambios
+    displayCatalog(currentCategory);
+  }
+});
 
 });
