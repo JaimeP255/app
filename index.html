@@ -60,16 +60,16 @@
         
         <!-- FILTRO POR COLOR -->
         <div class="subtitulo">Por color</div>
-          <select id="colorSelect">
-            <option value="todos">Todos</option>
-            <option value="rojo">Rojo</option>
-            <option value="naranja">Naranja</option>
-            <option value="amarillo">Amarillo</option>
-            <option value="verde">Verde</option>
-            <option value="azul">Azul</option>
-            <option value="morado">Morado</option>
-            <option value="rosa">Rosa</option>
-          </select>
+        <select id="colorSelect">
+          <option value="todos">Todos</option>
+          <option value="rojo">Rojo</option>
+          <option value="naranja">Naranja</option>
+          <option value="amarillo">Amarillo</option>
+          <option value="verde">Verde</option>
+          <option value="azul">Azul</option>
+          <option value="morado">Morado</option>
+          <option value="rosa">Rosa</option>
+        </select>
 
         <!-- FILTRO POR MARCA -->
         <div class="subtitulo">Por marca</div>
@@ -79,6 +79,10 @@
         </select>
       </div>
     </div>
+
+    <button id="btnBorrarSeleccion" class="btn-borrar hidden">
+      🗑️ Borrar (<span id="contadorSeleccion">0</span>)
+    </button>
 
 
     <!-- 🔹 Aquí van las prendas -->
